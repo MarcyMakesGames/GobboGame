@@ -9,15 +9,16 @@ public class PawnNeedsStatus
     [SerializeField] public int sleep = 10;
     [SerializeField] public int entertainment = 10;
     [SerializeField] public int happiness = 10;
+    [SerializeField] public int statMax = 10;
 
     public PawnNeedsStatus(PawnNeedsStatusContainer container = null)
     {
         if(container == null)
         {
-            hunger = 10;
-            sleep = 10;
-            entertainment = 10;
-            happiness = 10;
+            hunger = statMax;
+            sleep = statMax;
+            entertainment = statMax;
+            happiness = statMax;
         }
         else
         {
@@ -35,16 +36,16 @@ public class PawnNeedsStatus
             case NeedStatus.None:
                 break;
             case NeedStatus.Hunger:
-                hunger = Mathf.Clamp(hunger + magnitude, 0, 10);
+                hunger = Mathf.Clamp(hunger + magnitude, 0, statMax);
                 break;
             case NeedStatus.Sleep:
-                sleep = Mathf.Clamp(sleep + magnitude, 0, 10);
+                sleep = Mathf.Clamp(sleep + magnitude, 0, statMax);
                 break;
             case NeedStatus.Entertainment:
-                entertainment = Mathf.Clamp(entertainment + magnitude, 0, 10);
+                entertainment = Mathf.Clamp(entertainment + magnitude, 0, statMax);
                 break;
             case NeedStatus.Happiness:
-                happiness = Mathf.Clamp(happiness + magnitude, 0, 10);
+                happiness = Mathf.Clamp(happiness + magnitude, 0, statMax);
                 break;
         }
 
@@ -53,23 +54,23 @@ public class PawnNeedsStatus
 
     public void IncrementAllStatuses()
     {
-        hunger = Mathf.Clamp(hunger - 1, 0, 10);
-        sleep = Mathf.Clamp(sleep - 1, 0, 10);
-        entertainment = Mathf.Clamp(entertainment - 1, 0, 10);
+        hunger = Mathf.Clamp(hunger - 1, 0, statMax);
+        sleep = Mathf.Clamp(sleep - 1, 0, statMax);
+        entertainment = Mathf.Clamp(entertainment - 1, 0, statMax);
 
         if(hunger <= 4 )
-            happiness = Mathf.Clamp(happiness - 1, 0, 10);
+            happiness = Mathf.Clamp(happiness - 1, 0, statMax);
         if (hunger >= 5)
-            happiness = Mathf.Clamp(happiness + 1, 0, 10);
+            happiness = Mathf.Clamp(happiness + 1, 0, statMax);
 
         if (sleep <= 4)
-            happiness = Mathf.Clamp(happiness - 1, 0, 10);
+            happiness = Mathf.Clamp(happiness - 1, 0, statMax);
         if (sleep >= 5)
-            happiness = Mathf.Clamp(happiness + 1, 0, 10);
+            happiness = Mathf.Clamp(happiness + 1, 0, statMax);
 
         if (entertainment <= 4)
-            happiness = Mathf.Clamp(happiness - 1, 0, 10);
+            happiness = Mathf.Clamp(happiness - 1, 0, statMax);
         if (entertainment >= 5)
-            happiness = Mathf.Clamp(happiness + 1, 0, 10);
+            happiness = Mathf.Clamp(happiness + 1, 0, statMax);
     }
 }

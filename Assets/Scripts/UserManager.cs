@@ -62,18 +62,10 @@ public class UserManager : MonoBehaviour
 
         sessionData = new SessionData();
         sessionData.loginTime = DateTime.Now;
-        Debug.Log("Session Login: " + DateTime.Now);
 
         if (userSaveData.sessionDataList == null)
             sessionDataList = new List<SessionData>();
         else
-        {
-            foreach(SessionData sessionData in userSaveData.sessionDataList)
-            {
-                Debug.Log(sessionData.logoutTime);
-            }
-
             sessionDataList = userSaveData.sessionDataList;
-        }
     }
 }

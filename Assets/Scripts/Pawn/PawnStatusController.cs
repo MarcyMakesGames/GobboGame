@@ -96,5 +96,25 @@ namespace PawnControl
             NeedsStatus.IncrementAllStatuses();
         }
         #endregion
+
+        public float GetHappinessPercent()
+        {
+            return (float)needsStatus.happiness / (float)needsStatus.statMax;
+        }
+
+        public float GetHungerPercent()
+        {
+            return (float)needsStatus.hunger / (float)needsStatus.statMax;
+        }
+
+        public float GetSleepPercent()
+        {
+            return (float)needsStatus.sleep / (float)needsStatus.statMax;
+        }
+
+        public float GetEntertainmentPercent()
+        {
+            return (float)needsStatus.entertainment / (float)needsStatus.statMax;
+        }
     }
 }

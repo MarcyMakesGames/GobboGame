@@ -8,6 +8,8 @@ public class PawnManager : MonoBehaviour
 {
     public static PawnManager instance;
 
+    [SerializeField] private GamePanelManager gamePanelManager;
+
     private PawnController controller;
 
     public PawnStatusController GetPawnStatusController()
@@ -53,8 +55,14 @@ public class PawnManager : MonoBehaviour
             
             for (int i = 0; i < (int)timeSpan.TotalHours; i++)
             {
-                controller.PawnStatusController.IncrementAllStatuses();
+                IncrementAllStatuses();
             }
         }
+    }
+
+    private void IncrementAllStatuses()
+    {
+        controller.PawnStatusController.IncrementAllStatuses();
+        gamePanelManager.UpdateStatsPanel(controller.PawnStatusController);
     }
 }

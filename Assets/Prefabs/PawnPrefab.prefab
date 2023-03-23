@@ -130,15 +130,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b165dab9b0149704a80bdf02b25f0362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawnStatusController:
-    firstName: Marcy
-    nickName: Gobbo
-    lastName: Gamer
+  statusController:
+    firstName: 
+    nickName: 
+    lastName: 
+    mentalStatus:
+      health: 0
+      statusEffects: []
+    physicalStatus:
+      health: 0
+      statusEffects: []
     needsStatus:
-      hunger: 8
-      sleep: 6
-      entertainment: 5
-      happiness: 3
+      hunger: 0
+      sleep: 0
+      entertainment: 0
+      happiness: 0
+      statMax: 10
 --- !u!114 &6523147044823972026
 MonoBehaviour:
   m_ObjectHideFlags: 0
