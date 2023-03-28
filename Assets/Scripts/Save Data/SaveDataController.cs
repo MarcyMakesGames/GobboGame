@@ -8,7 +8,7 @@ public class SaveDataController
     public void SaveGameData()
     {
         SaveDataObject currentData = new SaveDataObject();
-        PawnStatusController pawnStatus = PawnManager.instance.GetPawnStatusController();
+        PawnStatusController pawnStatus = PawnManager.instance.Controller.PawnStatusController;
         List<SessionData> sessionDataList = UserManager.instance.GetUserSessionData();
 
         currentData.pawnStatusContainer = new PawnStatusContainer();

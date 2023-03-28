@@ -12,9 +12,11 @@ public class PawnManager : MonoBehaviour
 
     private PawnController controller;
 
-    public PawnStatusController GetPawnStatusController()
+    public PawnController Controller { get => controller; }
+
+    public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
     {
-        return controller.PawnStatusController;
+        controller.SetAnimation(animationDirection, onAnimationComplete);
     }
 
     public void AssignNewPawnController(PawnController newPawn, PawnStatusContainer pawnStatusContainer)
@@ -23,6 +25,11 @@ public class PawnManager : MonoBehaviour
         controller.InitPawnController(pawnStatusContainer);
 
         UpdatePawnSinceLastLogin();
+    }
+
+    public void LockPawnToCenter(bool lockPawn)
+    {
+        controller.PawnMoveController.LockPawnToCenter(lockPawn);
     }
 
     private void Awake()
@@ -54,9 +61,7 @@ public class PawnManager : MonoBehaviour
             TimeSpan timeSpan = currentTime - lastLogin;
             
             for (int i = 0; i < (int)timeSpan.TotalHours; i++)
-            {
                 IncrementAllStatuses();
-            }
         }
     }
 

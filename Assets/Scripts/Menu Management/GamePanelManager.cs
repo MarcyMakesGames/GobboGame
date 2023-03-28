@@ -27,6 +27,7 @@ public class GamePanelManager : MonoBehaviour
                 statsPanel.SetActive(false);
                 break;
             case PanelType.Entertainment:
+                PawnManager.instance.LockPawnToCenter(true);
                 entertainmentPanel.SetActive(!entertainmentPanel.activeSelf);
                 foodPanel.SetActive(false);
                 sleepPanel.SetActive(false);
@@ -49,6 +50,7 @@ public class GamePanelManager : MonoBehaviour
                 foodPanel.SetActive(false);
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(!statsPanel.activeSelf);
+                UpdateStatsPanel(PawnManager.instance.Controller.PawnStatusController);
                 break;
         }
     }

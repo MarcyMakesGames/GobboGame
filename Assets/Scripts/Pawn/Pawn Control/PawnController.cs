@@ -7,8 +7,11 @@ using UnityEngine;
 public class PawnController : MonoBehaviour, IUpdateOnHour
 {
     [SerializeField] private PawnStatusController statusController;
+    [SerializeField] private PawnAnimatorController animatorController;
+    [SerializeField] private PawnMoveController moveController;
 
     public PawnStatusController PawnStatusController { get => statusController; }
+    public PawnMoveController PawnMoveController { get => moveController; }
 
     public void InitPawnController(PawnStatusContainer statusContainer)
     {
@@ -24,6 +27,11 @@ public class PawnController : MonoBehaviour, IUpdateOnHour
     public void UpdateOnHour()
     {
         IncrementAllStatuses();
+    }
+
+    public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
+    {
+        animatorController.SetAnimation(animationDirection, onAnimationComplete);
     }
 
     private void Awake()

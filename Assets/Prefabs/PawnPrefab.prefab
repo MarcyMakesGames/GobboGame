@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1081056628097828131}
   - component: {fileID: 1081056628097828128}
+  - component: {fileID: 1281949168273018297}
+  - component: {fileID: 87487230564022789}
   m_Layer: 0
   m_Name: Pawn Sprite
   m_TagString: Untagged
@@ -74,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19206686, g: 0.6037736, b: 0.03645422, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +86,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1281949168273018297
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081056628097828130}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 670385514d6097a4ca7b47997d0cc9db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &87487230564022789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081056628097828130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0879592641d57ba4aba1dfca0c1869e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  anim: {fileID: 1281949168273018297}
 --- !u!1 &1081056628344111540
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +183,8 @@ MonoBehaviour:
       entertainment: 0
       happiness: 0
       statMax: 10
+  animatorController: {fileID: 87487230564022789}
+  moveController: {fileID: 6523147044823972026}
 --- !u!114 &6523147044823972026
 MonoBehaviour:
   m_ObjectHideFlags: 0

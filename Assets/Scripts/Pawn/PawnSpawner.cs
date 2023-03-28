@@ -10,6 +10,9 @@ public class PawnSpawner : MonoBehaviour
 
     public void SpawnNewPawn(PawnStatusContainer pawnStatusContainer)
     {
+        if (PawnManager.instance.Controller != null)
+            return;
+
         GameObject newPawn = Instantiate(pawnPrefab, pawnAnchor);
         PawnController pawnController = newPawn.GetComponent<PawnController>();
 

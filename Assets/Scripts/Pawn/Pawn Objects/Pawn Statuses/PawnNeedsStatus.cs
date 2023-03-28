@@ -37,15 +37,23 @@ public class PawnNeedsStatus
                 break;
             case NeedStatus.Hunger:
                 hunger = Mathf.Clamp(hunger + magnitude, 0, statMax);
+                if (magnitude >= 1 && happiness < 4)
+                    happiness++;
                 break;
             case NeedStatus.Sleep:
                 sleep = Mathf.Clamp(sleep + magnitude, 0, statMax);
+                if (magnitude >= 1 && happiness < 4)
+                    happiness++;
                 break;
             case NeedStatus.Entertainment:
                 entertainment = Mathf.Clamp(entertainment + magnitude, 0, statMax);
+                if (magnitude >= 1 && happiness < 4)
+                    happiness++;
                 break;
             case NeedStatus.Happiness:
                 happiness = Mathf.Clamp(happiness + magnitude, 0, statMax);
+                if (magnitude >= 1 && happiness < 4)
+                    happiness++;
                 break;
         }
 

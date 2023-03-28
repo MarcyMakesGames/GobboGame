@@ -18,11 +18,25 @@ public class PawnMoveController : MonoBehaviour
     private float pauseDuration;
     private float moveTimer;
 
-    public bool IsMovingToCenter { get => isMovingToCenter; set => isMovingToCenter = value; }
-    public bool HasAnnouncedArrival { get => hasAnnouncedArrival; set => hasAnnouncedArrival = value; }
-
     public delegate void onPawnReachedCenter();
-    public static event onPawnReachedCenter PawnReachedCenter;
+    public static event onPawnReachedCenter OnPawnReachedCenter;
+
+    public void LockPawnToCenter(bool moveToCenter)
+    {
+        isMovingToCenter = moveToCenter;
+        if(isMovingToCenter)
+        {
+            targetPosition = centerPosition;
+            isPaused = false;
+        }
+
+        if(!isMovingToCenter)
+        {
+            targetPosition = GetRandomPosition();
+            hasAnnouncedArrival = false;
+            isPaused = false;
+        }
+    }
 
     private void Start()
     {
@@ -32,6 +46,7 @@ public class PawnMoveController : MonoBehaviour
 
         centerPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         centerPosition = Camera.main.ScreenToWorldPoint(centerPosition);
+        centerPosition = new Vector3(centerPosition.x, centerPosition.y, 0);
 
         minPosition = new Vector3(mainCamera.transform.position.x - camWidth + transform.localScale.x,
                                   mainCamera.transform.position.y - camHeight + transform.localScale.y,
@@ -62,7 +77,7 @@ public class PawnMoveController : MonoBehaviour
             }
             else if (transform.position == targetPosition && isMovingToCenter && !hasAnnouncedArrival)
             {
-                PawnReachedCenter?.Invoke();
+                OnPawnReachedCenter?.Invoke();
                 hasAnnouncedArrival = true;
             }
         }

@@ -24,6 +24,6 @@ public class InteractionController : MonoBehaviour
 
     private void Start()
     {
-        pawnStatusController = PawnManager.instance.GetPawnStatusController();
+        pawnStatusController = PawnManager.instance.Controller.PawnStatusController;
     }
 }
