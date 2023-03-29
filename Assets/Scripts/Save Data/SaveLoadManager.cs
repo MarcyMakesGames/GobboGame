@@ -34,17 +34,22 @@ public class SaveLoadManager : MonoBehaviour
     }
 
     [ContextMenu("SaveGame")]
-    public void SaveGameData()
+    public void SaveAccountData()
     {
-        saveController.SaveGameData();
+        saveController.SaveAccountData();
     }
 
-    public void LoadGameData(UserPassObject userPassObject)
+    public void LoadAccountData(UserPassObject userPassObject)
     {
-        saveController.LoadGame(userPassObject);
+        saveController.LoadAccountData(userPassObject);
     }
 
-    public void UpdatePlayerData(SaveDataObject data)
+    public void CreateAccountData(UserPassObject userPassObject)
+    {
+        saveController.CreateAccountData(userPassObject);
+    }
+
+    public void UpdatePlayerData(SaveDataObject data = null)
     {
         OnPlayerDataUpdated?.Invoke(data);
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class SaveDataController
 {
-    public void SaveGameData()
+    public void SaveAccountData()
     {
         SaveDataObject currentData = new SaveDataObject();
         PawnStatusController pawnStatus = PawnManager.instance.Controller.PawnStatusController;
@@ -52,7 +52,7 @@ public class SaveDataController
         });
     }
 
-    public void LoadGame(UserPassObject userPassObject)
+    public void LoadAccountData(UserPassObject userPassObject)
     {
         string jsonPost = JsonConvert.SerializeObject(userPassObject);
 
@@ -65,8 +65,38 @@ public class SaveDataController
         (string response) =>
         {
             Debug.Log("Response: " + response);
-            SaveDataObject newData = JsonConvert.DeserializeObject<SaveDataObject>(response);
-            SaveLoadManager.instance.UpdatePlayerData(newData);
+
+            if (!string.IsNullOrEmpty(response))
+            {
+                SaveDataObject newData = JsonConvert.DeserializeObject<SaveDataObject>(response);
+                SaveLoadManager.instance.UpdatePlayerData(newData);
+            }
+            else
+                SaveLoadManager.instance.UpdatePlayerData(null);
+        });
+    }
+
+    public void CreateAccountData(UserPassObject userPassObject)
+    {
+        string jsonPost = JsonConvert.SerializeObject(userPassObject);
+
+        WebRequestUtil.PostJson("https://thesisprojectdata.azurewebsites.net/api/CreatePostData?code=SSxW5B436OY3CpBVVGGYCDSr40tzsCRivwXsbGdBq2XkAzFu25Q4-w==",
+        jsonPost,
+        (string error) =>
+        {
+            Debug.Log("Error: " + error);
+        },
+        (string response) =>
+        {
+            Debug.Log("Response: " + response);
+
+            if (!string.IsNullOrEmpty(response))
+            {
+                SaveDataObject newData = JsonConvert.DeserializeObject<SaveDataObject>(response);
+                SaveLoadManager.instance.UpdatePlayerData(newData);
+            }
+            else
+                SaveLoadManager.instance.UpdatePlayerData(null);
         });
     }
 }

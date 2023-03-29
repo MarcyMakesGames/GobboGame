@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoginPanelController : MonoBehaviour
 {
@@ -10,24 +12,25 @@ public class LoginPanelController : MonoBehaviour
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private TMP_Text statusText;
+    [SerializeField] private Toggle rememberCredentialsToggle;
 
     [SerializeField, TextArea(1, 5)] private string loginFailedText;
 
     public void TryLogin()
     {
-        string username = usernameInput.text;
-        string password = passwordInput.text;
+        CheckSetCredentials();
+        SaveLoadManager.instance.LoadAccountData(CreateUserPassObject());
+    }
 
-        UserPassObject userPassObject = new UserPassObject();
-        userPassObject.username = username;
-        userPassObject.password = password;
-
-        SaveLoadManager.instance.LoadGameData(userPassObject);
+    public void TryCreateAccount()
+    {
+        SaveLoadManager.instance.CreateAccountData(CreateUserPassObject());
     }
 
     private void Start()
     {
         SaveLoadManager.OnPlayerDataUpdated += UpdateLoginPage;
+        CheckLoadCredentials();
     }
 
     private void OnDestroy()
@@ -48,6 +51,50 @@ public class LoginPanelController : MonoBehaviour
             UserManager.instance.InitializeUserLogin(usernameInput.text, passwordInput.text);
             loginPanel.SetActive(false);
             gamePanel.SetActive(true);
+        }
+    }
+
+    private UserPassObject CreateUserPassObject()
+    {
+        string username = usernameInput.text;
+        string password = passwordInput.text;
+
+        UserPassObject userPassObject = new UserPassObject();
+        userPassObject.username = username;
+        userPassObject.password = password;
+
+        return userPassObject;
+    }
+
+    private void CheckSetCredentials()
+    {
+        if (rememberCredentialsToggle.isOn)
+        {
+            PlayerPrefs.SetString("username", usernameInput.text);
+            PlayerPrefs.SetString("password", passwordInput.text);
+            PlayerPrefs.SetInt("rememberCredentials", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetString("username", "");
+            PlayerPrefs.SetString("password", "");
+            PlayerPrefs.SetInt("rememberCredentials", 0);
+        }
+    }
+
+    private void CheckLoadCredentials()
+    {
+        if(PlayerPrefs.GetInt("rememberCredentials") == 1)
+        {
+            rememberCredentialsToggle.isOn = true;
+            usernameInput.text = PlayerPrefs.GetString("username");
+            passwordInput.text = PlayerPrefs.GetString("password");
+        }
+        else
+        {
+            rememberCredentialsToggle.isOn = false;
+            usernameInput.text = PlayerPrefs.GetString("");
+            passwordInput.text = PlayerPrefs.GetString("");
         }
     }
 }

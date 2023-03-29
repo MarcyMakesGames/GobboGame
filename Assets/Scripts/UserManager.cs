@@ -8,6 +8,7 @@ public class UserManager : MonoBehaviour
     public static UserManager instance;
 
     [SerializeField] private string username;
+    [SerializeField] private string password;
     [SerializeField] private SessionData sessionData;
     [SerializeField] private List<SessionData> sessionDataList;
 
