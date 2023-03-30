@@ -13,6 +13,7 @@ public class PawnManager : MonoBehaviour
     private PawnController controller;
 
     public PawnController Controller { get => controller; }
+    public GameObject PawnObject { get => controller.gameObject; }
 
     public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
     {
