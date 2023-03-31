@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SimonGameManager : MonoBehaviour
 {
     [SerializeField] private GamePanelManager gamePanelManager;
     [SerializeField] private GameObject buttonTray;
+    [SerializeField] private TMP_Text instructionsText;
     [SerializeField] private int maxRounds = 5;
+    [TextArea(1,5)]
+    [SerializeField] private string instructions;
+
 
     private List<AnimationEnums> currentGame;
     private Queue<AnimationEnums> currentRound;
@@ -17,6 +22,7 @@ public class SimonGameManager : MonoBehaviour
         currentGame = new List<AnimationEnums>();
         currentRound = new Queue<AnimationEnums>();
 
+        instructionsText.text = instructions;
         StartNewRound();
     }
 
@@ -64,13 +70,14 @@ public class SimonGameManager : MonoBehaviour
     private void OnEnable()
     {
         PawnAnimatorController.OnAnimationComplete += ShowNextMove;
-        PawnMoveController.OnPawnReachedCenter += StartNewGame;
+        PawnMoveController.OnPawnReachedPlayPosition += StartNewGame;
     }
 
     private void OnDisable()
     {
-        PawnMoveController.OnPawnReachedCenter -= StartNewGame;
+        PawnMoveController.OnPawnReachedPlayPosition -= StartNewGame;
         PawnAnimatorController.OnAnimationComplete -= ShowNextMove;
+        PawnManager.instance.MovePawnToWanderPosition();
 
         buttonTray.SetActive(false);
         currentGame = null;
@@ -99,14 +106,13 @@ public class SimonGameManager : MonoBehaviour
 
     private void CloseGame()
     {
-        Debug.Log("Closing game.");
         PawnManager.instance.Controller.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, 7);
         buttonTray.SetActive(false);
         currentGame.Clear();
         currentRound.Clear();
         currentGuessIndex = 0;
 
-        PawnManager.instance.LockPawnToCenter(false);
+        PawnManager.instance.MovePawnToWanderPosition();
         gamePanelManager.ChangeGamePanel(PanelType.Stats);
     }
 }

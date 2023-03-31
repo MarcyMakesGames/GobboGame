@@ -27,20 +27,21 @@ public class GamePanelManager : MonoBehaviour
                 statsPanel.SetActive(false);
                 break;
             case PanelType.Entertainment:
-                PawnManager.instance.LockPawnToCenter(true);
+                PawnManager.instance.MovePawnToPlayPosition();
                 entertainmentPanel.SetActive(!entertainmentPanel.activeSelf);
                 foodPanel.SetActive(false);
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(false);
                 break;
             case PanelType.Food:
-                PawnManager.instance.LockPawnToBottom(true);
+                PawnManager.instance.MovePawnToFeedingPosition();
                 entertainmentPanel.SetActive(false);
                 foodPanel.SetActive(!foodPanel.activeSelf);
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(false);
                 break;
             case PanelType.Sleep:
+                PawnManager.instance.MovePawnToSleepingPosition();
                 entertainmentPanel.SetActive(false);
                 foodPanel.SetActive(false);
                 sleepPanel.SetActive(!sleepPanel.activeSelf);

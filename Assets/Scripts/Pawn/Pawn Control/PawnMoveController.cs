@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class PawnMoveController : MonoBehaviour
 {
+    public delegate void onPawnReachedPlayPosition();
+    public static event onPawnReachedPlayPosition OnPawnReachedPlayPosition;
+
+    public delegate void onPawnReachedEatPosition();
+    public static event onPawnReachedEatPosition OnPawnReachedEatPosition;
+
+    public delegate void onPawnReachedSleepPosition();
+    public static event onPawnReachedSleepPosition OnPawnReachedSleepPosition;
+
     [SerializeField] private float wanderSpeed = 2f;
     [SerializeField] private float playMoveSpeed = 5f;
     [SerializeField] private float pauseDurationMinimum = 2f;
@@ -13,55 +22,42 @@ public class PawnMoveController : MonoBehaviour
     private Vector3 centerPosition;
     private Vector3 bottomPosition;
 
-    private bool isMovingToCenter = false;
-    private bool isMovingToBottom = false;
-    private bool hasAnnouncedArrival = false;
-    private bool isPlayerControlled;
+    private bool arrivedAtPlayPosition = false;
+    private bool arrivedAtEatPosition = false;
+    private bool arrivedAtSleepPosition = false;
     private bool isPaused = true;
     private float pauseTimer;
     private float pauseDuration;
-    private float moveTimer;
+    private ActivityStatus currentActivityStatus = ActivityStatus.Wander;
 
-    public delegate void onPawnReachedCenter();
-    public static event onPawnReachedCenter OnPawnReachedCenter;
-
-    public delegate void onPawnReachedBottom();
-    public static event onPawnReachedBottom OnPawnReachedBottom;
-
-    public void LockPawnToCenter(bool moveToCenter)
+    public void SetActivityStatus(ActivityStatus activityStatus)
     {
-        isMovingToCenter = moveToCenter;
-
-        if(isMovingToCenter)
-        {
-            targetPosition = centerPosition;
-            isPaused = false;
-        }
-
-        if(!isMovingToCenter)
-        {
-            targetPosition = GetRandomPosition();
-            hasAnnouncedArrival = false;
-            isPaused = false;
-        }
+        currentActivityStatus = activityStatus;
     }
 
-    public void LockPawnToBottom(bool moveToBottom)
+    public void MovePawnToPosition(ActivityStatus statusPosition)
     {
-        isMovingToBottom = moveToBottom;
+        currentActivityStatus = statusPosition;
+        arrivedAtPlayPosition = false;
+        arrivedAtEatPosition = false;
+        arrivedAtSleepPosition = false;
 
-        if (isMovingToBottom)
+        switch (currentActivityStatus)
         {
-            targetPosition = bottomPosition;
-            isPaused = false;
+            case ActivityStatus.Wander:
+                targetPosition = GetRandomPosition();
+                break;
+            case ActivityStatus.Play:
+                targetPosition = centerPosition;
+                break;
+            case ActivityStatus.Eat:
+                targetPosition = bottomPosition;
+                break;
+            case ActivityStatus.Sleep:
+                break;
         }
 
-        if (!isMovingToBottom)
-        {
-            targetPosition = GetRandomPosition();
-            isPlayerControlled = false;
-            isPaused = false;
-        }
+        isPaused = false;
     }
 
     private void Start()
@@ -91,46 +87,63 @@ public class PawnMoveController : MonoBehaviour
 
     private void Update()
     {
-        if(isPlayerControlled)
+        if(arrivedAtEatPosition)
         {
-            if(Input.GetKey(KeyCode.A))
-            {
-                transform.position = Vector3.MoveTowards(transform.position,
-                                                        new Vector3(Mathf.Clamp(transform.position.x - 1, minPosition.x, maxPosition.x),
-                                                                                transform.position.y, transform.position.z),
-                                                        playMoveSpeed * Time.deltaTime);
-            }
-            if(Input.GetKey(KeyCode.D))
-            {
-                transform.position = Vector3.MoveTowards(transform.position,
-                                                        new Vector3(Mathf.Clamp(transform.position.x + 1, minPosition.x, maxPosition.x),
-                                                                                transform.position.y, transform.position.z),
-                                                        playMoveSpeed * Time.deltaTime);
-            }
-
+            InterpretPlayerMovement();
             return;
         }
 
+        switch (currentActivityStatus)
+        {
+            case ActivityStatus.Wander:
+                Wander();
+                break;
+            case ActivityStatus.Play:
+                MoveToPlayPosition();
+                break;
+            case ActivityStatus.Eat:
+                MoveToEatPosition();
+                break;
+            case ActivityStatus.Sleep:
+                break;
+        }
+    }
+
+    private void MoveToEatPosition()
+    {
+        if (!arrivedAtEatPosition)
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
+
+        if (transform.position == targetPosition && !arrivedAtEatPosition)
+        {
+            OnPawnReachedEatPosition?.Invoke();
+            arrivedAtEatPosition = true;
+        }
+    }
+
+    private void MoveToPlayPosition()
+    {
+        if(!arrivedAtPlayPosition)
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
+
+        if (transform.position == targetPosition && !arrivedAtPlayPosition)
+        {
+            OnPawnReachedPlayPosition?.Invoke();
+            arrivedAtPlayPosition = true;
+        }
+    }
+
+    private void Wander()
+    {
         if (!isPaused)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
-            moveTimer += Time.deltaTime;
 
-            if (transform.position == targetPosition && !isMovingToCenter && !isMovingToBottom)
+            if (transform.position == targetPosition)
             {
                 isPaused = true;
                 pauseTimer = 0f;
                 pauseDuration = Random.Range(pauseDurationMinimum, pauseDurationMaximum);
-            }
-            else if (transform.position == targetPosition && isMovingToCenter && !isMovingToBottom && !hasAnnouncedArrival)
-            {
-                OnPawnReachedCenter?.Invoke();
-                hasAnnouncedArrival = true;
-            }
-            else if (transform.position == targetPosition && !isMovingToCenter && isMovingToBottom && !isPlayerControlled)
-            {
-                OnPawnReachedBottom?.Invoke();
-                isPlayerControlled = true;
             }
         }
         else
@@ -140,9 +153,26 @@ public class PawnMoveController : MonoBehaviour
             if (pauseTimer >= pauseDuration)
             {
                 isPaused = false;
-                moveTimer = 0f;
                 targetPosition = GetRandomPosition();
             }
+        }
+    }
+
+    private void InterpretPlayerMovement()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position = Vector3.MoveTowards(transform.position,
+                                                    new Vector3(Mathf.Clamp(transform.position.x - 1, minPosition.x, maxPosition.x),
+                                                                            transform.position.y, transform.position.z),
+                                                    playMoveSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position = Vector3.MoveTowards(transform.position,
+                                                    new Vector3(Mathf.Clamp(transform.position.x + 1, minPosition.x, maxPosition.x),
+                                                                            transform.position.y, transform.position.z),
+                                                    playMoveSpeed * Time.deltaTime);
         }
     }
 

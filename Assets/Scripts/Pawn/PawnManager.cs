@@ -28,14 +28,24 @@ public class PawnManager : MonoBehaviour
         UpdatePawnSinceLastLogin();
     }
 
-    public void LockPawnToCenter(bool lockPawn)
+    public void MovePawnToPlayPosition()
     {
-        controller.PawnMoveController.LockPawnToCenter(lockPawn);
+        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Play);
     }
 
-    public void LockPawnToBottom(bool lockPawn)
+    public void MovePawnToFeedingPosition()
     {
-        controller.PawnMoveController.LockPawnToBottom(lockPawn);
+        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Eat);
+    }
+
+    public void MovePawnToSleepingPosition()
+    {
+        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Sleep);
+    }
+
+    public void MovePawnToWanderPosition()
+    {
+        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Wander);
     }
 
     private void Awake()

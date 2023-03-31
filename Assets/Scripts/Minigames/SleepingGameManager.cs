@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class FoodDropGameManager : MonoBehaviour
+public class SleepingGameManager : MonoBehaviour
 {
     [SerializeField] private GamePanelManager gamePanelManager;
     [SerializeField] private List<GameObject> foodPrefabs;
@@ -11,7 +11,7 @@ public class FoodDropGameManager : MonoBehaviour
     [SerializeField] private int maxFoodCount = 10;
     [SerializeField] private float spawnDelay = 2f;
     [SerializeField] private Vector3 stackOffset;
-    [TextArea(1,5)]
+    [TextArea(1, 5)]
     [SerializeField] private string defaultInstructions;
     [TextArea(1, 5)]
     [SerializeField] private string instructions;
@@ -26,17 +26,6 @@ public class FoodDropGameManager : MonoBehaviour
 
     public bool GameIsOver { get => gameIsOver; set => gameIsOver = value; }
 
-    public void AddFoodToStack(GameObject stackObject)
-    {
-        if (stackObject.GetComponent<StackItemController>().FoodType == selectedFoodType)
-            foodStackController.AddObjectToStack(stackObject);
-        else
-        {
-            foodStackController.AddObjectToStack(stackObject);
-            DropStack();
-        }
-    }
-
     public void AddToTotalFood(GameObject foodToAdd)
     {
         activeFoodList.Add(foodToAdd);
@@ -47,10 +36,6 @@ public class FoodDropGameManager : MonoBehaviour
         activeFoodList.Remove(foodToRemove);
     }
 
-    public void DropStack()
-    {
-        foodStackController.DropStack();
-    }
 
     public void StartNewGame()
     {
@@ -70,7 +55,7 @@ public class FoodDropGameManager : MonoBehaviour
     private void Start()
     {
         foodDropSpawner = GetComponent<FoodDropSpawner>();
-        foodStackController =  new FoodStackController();
+        foodStackController = new FoodStackController();
     }
 
     private void OnEnable()
@@ -88,9 +73,9 @@ public class FoodDropGameManager : MonoBehaviour
 
     private void Update()
     {
-        if(gameIsStarted && gameIsOver)
+        if (gameIsStarted && gameIsOver)
         {
-            if(activeFoodList.Count == foodStackController.StackCount)
+            if (activeFoodList.Count == foodStackController.StackCount)
                 EndGame();
         }
     }
@@ -108,3 +93,4 @@ public class FoodDropGameManager : MonoBehaviour
         gamePanelManager.ChangeGamePanel(PanelType.Stats);
     }
 }
+
