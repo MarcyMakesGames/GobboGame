@@ -7,7 +7,6 @@ public class FoodStackController
     [SerializeField] private GameObject pawnObject;
 
     private Stack<GameObject> stack = new Stack<GameObject>();
-    private List<GameObject> list = new List<GameObject>();
 
     private Vector3 stackOffset;
 
@@ -38,13 +37,18 @@ public class FoodStackController
     {
         pawnObject = PawnManager.instance.PawnObject;
         stack = new Stack<GameObject>();
-        list = new List<GameObject>();
         stackOffset = offset;
     }
 
     public void EatStack()
     {
+        int stackCount = stack.Count;
 
+        for (int i = 0; i < stackCount; i++)
+        {
+            GameObject stackItem = stack.Pop();
+            stackItem.GetComponent<StackItemController>().EatItem();
+        }
     }
 
     public void DropStack()

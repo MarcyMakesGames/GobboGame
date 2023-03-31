@@ -33,6 +33,11 @@ public class PawnManager : MonoBehaviour
         controller.PawnMoveController.LockPawnToCenter(lockPawn);
     }
 
+    public void LockPawnToBottom(bool lockPawn)
+    {
+        controller.PawnMoveController.LockPawnToBottom(lockPawn);
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)

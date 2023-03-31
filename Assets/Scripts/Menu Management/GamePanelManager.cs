@@ -34,6 +34,7 @@ public class GamePanelManager : MonoBehaviour
                 statsPanel.SetActive(false);
                 break;
             case PanelType.Food:
+                PawnManager.instance.LockPawnToBottom(true);
                 entertainmentPanel.SetActive(false);
                 foodPanel.SetActive(!foodPanel.activeSelf);
                 sleepPanel.SetActive(false);
@@ -49,7 +50,7 @@ public class GamePanelManager : MonoBehaviour
                 entertainmentPanel.SetActive(false);
                 foodPanel.SetActive(false);
                 sleepPanel.SetActive(false);
-                statsPanel.SetActive(!statsPanel.activeSelf);
+                statsPanel.SetActive(true);
                 UpdateStatsPanel(PawnManager.instance.Controller.PawnStatusController);
                 break;
         }
@@ -61,5 +62,10 @@ public class GamePanelManager : MonoBehaviour
         foodSlider.value = pawnStatusController.GetHungerPercent();
         sleepSlider.value = pawnStatusController.GetSleepPercent();
         entertainmentSlider.value = pawnStatusController.GetEntertainmentPercent();
+    }
+
+    private void Start()
+    {
+        UpdateStatsPanel(PawnManager.instance.Controller.PawnStatusController);
     }
 }

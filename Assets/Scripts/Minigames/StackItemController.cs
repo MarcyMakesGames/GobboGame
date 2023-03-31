@@ -30,12 +30,6 @@ public class StackItemController : MonoBehaviour
                 return;
             }
         }
-
-        if(hasBeenCaught && isEating)
-        {
-            if (pawnMoveController != null)
-                foodDropManager.RemoveFromTotalFood(gameObject);
-        }
     }
 
     public void DropItem()
@@ -49,6 +43,11 @@ public class StackItemController : MonoBehaviour
     {
         foodDropManager.RemoveFromTotalFood(this.gameObject);
         Destroy(gameObject);
+    }
+
+    public void EatItem()
+    {
+        isEating = true;
     }
 
     private void Start()
@@ -66,5 +65,10 @@ public class StackItemController : MonoBehaviour
             return;
 
         transform.position = Vector3.MoveTowards(transform.position, pawn.transform.position, moveSpeed * Time.deltaTime);
+
+        if (transform.position == pawn.transform.position)
+        {
+            DestroyItem();
+        }
     }
 }

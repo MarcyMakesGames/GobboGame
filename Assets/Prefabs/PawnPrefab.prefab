@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f5f09baa50d644b83c8eac5f6604ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  wanderSpeed: 2
+  playMoveSpeed: 9
   pauseDurationMinimum: 2
   pauseDurationMaximum: 10

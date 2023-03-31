@@ -6,6 +6,7 @@ public class SimonGameManager : MonoBehaviour
 {
     [SerializeField] private GamePanelManager gamePanelManager;
     [SerializeField] private GameObject buttonTray;
+    [SerializeField] private int maxRounds = 5;
 
     private List<AnimationEnums> currentGame;
     private Queue<AnimationEnums> currentRound;
@@ -44,7 +45,7 @@ public class SimonGameManager : MonoBehaviour
             {
                 buttonTray.SetActive(false);
 
-                if(currentGame.Count >= 2)
+                if(currentGame.Count >= maxRounds)
                 {
                     PawnManager.instance.SetAnimation(AnimationEnums.Celebration, CloseGame);
                 }

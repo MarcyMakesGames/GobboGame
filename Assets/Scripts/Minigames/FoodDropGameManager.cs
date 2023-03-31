@@ -11,6 +11,8 @@ public class FoodDropGameManager : MonoBehaviour
     [SerializeField] private int maxFoodCount = 10;
     [SerializeField] private float spawnDelay = 2f;
     [SerializeField] private Vector3 stackOffset;
+    [TextArea(1,5)]
+    [SerializeField] private string defaultInstructions;
     [TextArea(1, 5)]
     [SerializeField] private string instructions;
 
@@ -29,7 +31,10 @@ public class FoodDropGameManager : MonoBehaviour
         if (stackObject.GetComponent<StackItemController>().FoodType == selectedFoodType)
             foodStackController.AddObjectToStack(stackObject);
         else
+        {
+            foodStackController.AddObjectToStack(stackObject);
             DropStack();
+        }
     }
 
     public void AddToTotalFood(GameObject foodToAdd)
@@ -42,13 +47,11 @@ public class FoodDropGameManager : MonoBehaviour
         activeFoodList.Remove(foodToRemove);
     }
 
-    [ContextMenu("Drop Stack")]
     public void DropStack()
     {
         foodStackController.DropStack();
     }
 
-    [ContextMenu("StartGame")]
     public void StartNewGame()
     {
         int selectedFoodIndex = Random.Range(0, foodPrefabs.Count);
@@ -68,21 +71,19 @@ public class FoodDropGameManager : MonoBehaviour
     {
         foodDropSpawner = GetComponent<FoodDropSpawner>();
         foodStackController =  new FoodStackController();
-        StartNewGame();
     }
 
     private void OnEnable()
     {
         activeFoodList = new List<GameObject>();
-        PawnMoveController.OnPawnReachedCenter += StartNewGame;
-        PawnManager.instance.LockPawnToCenter(true);
-
+        PawnMoveController.OnPawnReachedBottom += StartNewGame;
+        instructionsText.text = defaultInstructions;
     }
 
     private void OnDisable()
     {
-        PawnMoveController.OnPawnReachedCenter -= StartNewGame;
-        PawnManager.instance.LockPawnToCenter(false);
+        PawnMoveController.OnPawnReachedBottom -= StartNewGame;
+        PawnManager.instance.LockPawnToBottom(false);
     }
 
     private void Update()
@@ -100,7 +101,9 @@ public class FoodDropGameManager : MonoBehaviour
         gameIsStarted = false;
 
         PawnManager.instance.Controller.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Hunger, foodStackController.StackCount);
-        PawnManager.instance.LockPawnToCenter(false);
+        foodStackController.EatStack();
+
+        PawnManager.instance.LockPawnToBottom(false);
 
         gamePanelManager.ChangeGamePanel(PanelType.Stats);
     }

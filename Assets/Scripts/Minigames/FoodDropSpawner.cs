@@ -31,10 +31,12 @@ public class FoodDropSpawner : MonoBehaviour
         foodCount = 0;
         timer = 0f;
 
-        if(garbageDisposal == null)
+
+        if (garbageDisposal == null)
         {
+            Debug.Log("Spawning new garbage disposal.");
             Vector3 bottomEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-            Instantiate(garbageDisposalPrefab, bottomEdge, Quaternion.identity);
+            garbageDisposal = Instantiate(garbageDisposalPrefab, bottomEdge, Quaternion.identity);
         }
     }
 
