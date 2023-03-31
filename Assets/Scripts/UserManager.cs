@@ -12,6 +12,10 @@ public class UserManager : MonoBehaviour
     [SerializeField] private SessionData sessionData;
     [SerializeField] private List<SessionData> sessionDataList;
 
+    private float quitCountdown = 2f;
+    private bool quitGame = false;
+    private bool hasUser = false;
+
     public string Username { get => username; set => username = value; }
     public string Password { get; private set; }
 
@@ -65,6 +69,17 @@ public class UserManager : MonoBehaviour
         SaveLoadManager.instance.SaveAccountData();
     }
 
+    public void QuitGame()
+    {
+        if(hasUser)
+        {
+            SaveLoadManager.instance.SaveAccountData();
+        }
+
+        quitCountdown = 2;
+        quitGame = true;
+    }
+
 
     private void Awake()
     {
@@ -82,11 +97,24 @@ public class UserManager : MonoBehaviour
         SaveLoadManager.OnPlayerDataUpdated += InitializeUserData;
     }
 
+    private void Update()
+    {
+        if (quitGame)
+        {
+            quitCountdown -= Time.deltaTime;
+            if (quitCountdown <= 0)
+            {
+                Application.Quit();
+            }
+        }
+    }
+
     private void InitializeUserData(SaveDataObject userSaveData)
     {
         if (userSaveData == null)
             return;
-        Debug.Log("Initializing user data");
+
+        hasUser = true;
 
         sessionData = new SessionData();
         sessionData.loginTime = DateTime.Now;
@@ -94,12 +122,10 @@ public class UserManager : MonoBehaviour
         if (userSaveData.sessionDataList == null)
         {
             sessionDataList = new List<SessionData>();
-            Debug.Log("Session data list is null, creating new list.");
         }
         else
         {
             sessionDataList = userSaveData.sessionDataList;
-            Debug.Log("Session data list size: " + sessionDataList.Count);
 
             sessionDataList.Add(sessionData);
         }
