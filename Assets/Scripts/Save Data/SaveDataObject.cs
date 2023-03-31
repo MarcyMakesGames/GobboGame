@@ -18,11 +18,9 @@ public class SaveDataObject
 public class SessionData
 {
     //Session interactions
-    public int timesPet;
+    public int timesRested;
     public int timesFed;
-    public int timesHealed;
     public int timesPlayed;
-    public int timesGivenItems;
 
     //Session times
     public DateTime loginTime;

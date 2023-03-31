@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SleepingGameManager : MonoBehaviour
+public class FoodDropGameManager : MonoBehaviour
 {
     [SerializeField] private GamePanelManager gamePanelManager;
     [SerializeField] private List<GameObject> foodPrefabs;
@@ -11,7 +11,7 @@ public class SleepingGameManager : MonoBehaviour
     [SerializeField] private int maxFoodCount = 10;
     [SerializeField] private float spawnDelay = 2f;
     [SerializeField] private Vector3 stackOffset;
-    [TextArea(1, 5)]
+    [TextArea(1,5)]
     [SerializeField] private string defaultInstructions;
     [TextArea(1, 5)]
     [SerializeField] private string instructions;
@@ -26,6 +26,17 @@ public class SleepingGameManager : MonoBehaviour
 
     public bool GameIsOver { get => gameIsOver; set => gameIsOver = value; }
 
+    public void AddFoodToStack(GameObject stackObject)
+    {
+        if (stackObject.GetComponent<FoodItemController>().FoodType == selectedFoodType)
+            foodStackController.AddObjectToStack(stackObject);
+        else
+        {
+            foodStackController.AddObjectToStack(stackObject);
+            DropStack();
+        }
+    }
+
     public void AddToTotalFood(GameObject foodToAdd)
     {
         activeFoodList.Add(foodToAdd);
@@ -36,11 +47,15 @@ public class SleepingGameManager : MonoBehaviour
         activeFoodList.Remove(foodToRemove);
     }
 
+    public void DropStack()
+    {
+        foodStackController.DropStack();
+    }
 
     public void StartNewGame()
     {
         int selectedFoodIndex = Random.Range(0, foodPrefabs.Count);
-        selectedFoodType = foodPrefabs[selectedFoodIndex].GetComponent<StackItemController>().FoodType;
+        selectedFoodType = foodPrefabs[selectedFoodIndex].GetComponent<FoodItemController>().FoodType;
 
         instructionsText.text = instructions + selectedFoodType.ToString() + " foods.";
 
@@ -55,7 +70,7 @@ public class SleepingGameManager : MonoBehaviour
     private void Start()
     {
         foodDropSpawner = GetComponent<FoodDropSpawner>();
-        foodStackController = new FoodStackController();
+        foodStackController =  new FoodStackController();
     }
 
     private void OnEnable()
@@ -73,9 +88,9 @@ public class SleepingGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameIsStarted && gameIsOver)
+        if(gameIsStarted && gameIsOver)
         {
-            if (activeFoodList.Count == foodStackController.StackCount)
+            if(activeFoodList.Count == foodStackController.StackCount)
                 EndGame();
         }
     }
@@ -86,11 +101,10 @@ public class SleepingGameManager : MonoBehaviour
         gameIsStarted = false;
 
         PawnManager.instance.Controller.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Hunger, foodStackController.StackCount);
+        PawnManager.instance.InteractedWithPawn(ActivityStatus.Eat);
         foodStackController.EatStack();
 
         PawnManager.instance.MovePawnToWanderPosition();
-
         gamePanelManager.ChangeGamePanel(PanelType.Stats);
     }
 }
-

@@ -48,6 +48,11 @@ public class PawnManager : MonoBehaviour
         controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Wander);
     }
 
+    public void InteractedWithPawn(ActivityStatus activityStatus)
+    {
+        UserManager.instance.LogInteraction(activityStatus);
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -66,7 +71,7 @@ public class PawnManager : MonoBehaviour
     {
         SessionData sessionData = UserManager.instance.GetLastSessionData();
 
-        if(sessionData == null)
+        if(sessionData == null || sessionData.logoutTime.Year == 0001)
         {
             return;
         }

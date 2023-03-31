@@ -106,11 +106,13 @@ public class SimonGameManager : MonoBehaviour
 
     private void CloseGame()
     {
-        PawnManager.instance.Controller.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, 7);
         buttonTray.SetActive(false);
         currentGame.Clear();
         currentRound.Clear();
         currentGuessIndex = 0;
+
+        PawnManager.instance.InteractedWithPawn(ActivityStatus.Play);
+        PawnManager.instance.Controller.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, 7);
 
         PawnManager.instance.MovePawnToWanderPosition();
         gamePanelManager.ChangeGamePanel(PanelType.Stats);

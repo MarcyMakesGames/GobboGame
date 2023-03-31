@@ -6,7 +6,7 @@ public class GarbageDisposalController : MonoBehaviour
 {
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        StackItemController stackItem = collision.gameObject.GetComponent<StackItemController>();
+        FoodItemController stackItem = collision.gameObject.GetComponent<FoodItemController>();
 
         if(stackItem != null)
         {

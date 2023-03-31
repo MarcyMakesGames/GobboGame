@@ -9,7 +9,7 @@ public class SaveDataController
     {
         SaveDataObject currentData = new SaveDataObject();
         PawnStatusController pawnStatus = PawnManager.instance.Controller.PawnStatusController;
-        List<SessionData> sessionDataList = UserManager.instance.GetUserSessionData();
+        List<SessionData> sessionDataList = UserManager.instance.CreateNewUserSessionDataList();
 
         currentData.pawnStatusContainer = new PawnStatusContainer();
         currentData.pawnStatusContainer.MentalStatusContainer = new PawnMentalStatusContainer();
@@ -38,7 +38,7 @@ public class SaveDataController
         currentData.sessionDataList = sessionDataList;
         
 
-        string jsonPost = JsonConvert.SerializeObject(currentData);
+        string jsonPost = JsonConvert.SerializeObject(currentData, Formatting.Indented);
 
         WebRequestUtil.PostJson("https://thesisprojectdata.azurewebsites.net/api/PostSaveData?code=9Da2f0e7WgDrSZFucqSdlNxluqRoexOfLPmLWstfnBagAzFuVQ452A==",
         jsonPost,

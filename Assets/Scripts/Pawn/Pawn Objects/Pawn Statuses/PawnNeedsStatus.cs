@@ -68,17 +68,17 @@ public class PawnNeedsStatus
 
         if(hunger <= 4 )
             happiness = Mathf.Clamp(happiness - 1, 0, statMax);
-        if (hunger >= 5)
+        if (hunger >= 7)
             happiness = Mathf.Clamp(happiness + 1, 0, statMax);
 
         if (sleep <= 4)
             happiness = Mathf.Clamp(happiness - 1, 0, statMax);
-        if (sleep >= 5)
+        if (sleep >= 7)
             happiness = Mathf.Clamp(happiness + 1, 0, statMax);
 
         if (entertainment <= 4)
             happiness = Mathf.Clamp(happiness - 1, 0, statMax);
-        if (entertainment >= 5)
+        if (entertainment >= 7)
             happiness = Mathf.Clamp(happiness + 1, 0, statMax);
     }
 }

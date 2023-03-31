@@ -47,7 +47,7 @@ public class FoodStackController
         for (int i = 0; i < stackCount; i++)
         {
             GameObject stackItem = stack.Pop();
-            stackItem.GetComponent<StackItemController>().EatItem();
+            stackItem.GetComponent<FoodItemController>().EatItem();
         }
     }
 
@@ -58,7 +58,7 @@ public class FoodStackController
         for(int i = 0; i < stackCount; i++)
         {
             GameObject stackItem = stack.Pop();
-            stackItem.GetComponent<StackItemController>().DropItem();
+            stackItem.GetComponent<FoodItemController>().DropItem();
         }
     }
 }

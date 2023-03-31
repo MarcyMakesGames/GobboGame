@@ -16,8 +16,16 @@ public class GamePanelManager : MonoBehaviour
     [SerializeField] private Slider sleepSlider;
     [SerializeField] private Slider entertainmentSlider;
 
+    private PanelType currentPanelStatus = PanelType.Stats;
+
     public void ChangeGamePanel(PanelType panel)
     {
+        if (panel == currentPanelStatus)
+            return;
+        
+        currentPanelStatus = panel;
+
+
         switch (panel)
         {
             case PanelType.None:
@@ -26,6 +34,7 @@ public class GamePanelManager : MonoBehaviour
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(false);
                 break;
+
             case PanelType.Entertainment:
                 PawnManager.instance.MovePawnToPlayPosition();
                 entertainmentPanel.SetActive(!entertainmentPanel.activeSelf);
@@ -33,6 +42,7 @@ public class GamePanelManager : MonoBehaviour
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(false);
                 break;
+
             case PanelType.Food:
                 PawnManager.instance.MovePawnToFeedingPosition();
                 entertainmentPanel.SetActive(false);
@@ -40,6 +50,7 @@ public class GamePanelManager : MonoBehaviour
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(false);
                 break;
+
             case PanelType.Sleep:
                 PawnManager.instance.MovePawnToSleepingPosition();
                 entertainmentPanel.SetActive(false);
@@ -47,6 +58,7 @@ public class GamePanelManager : MonoBehaviour
                 sleepPanel.SetActive(!sleepPanel.activeSelf);
                 statsPanel.SetActive(false);
                 break;
+
             case PanelType.Stats:
                 entertainmentPanel.SetActive(false);
                 foodPanel.SetActive(false);

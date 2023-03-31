@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StackItemController : MonoBehaviour
+public class FoodItemController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private FoodType foodType;

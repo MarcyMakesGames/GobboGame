@@ -54,6 +54,7 @@ public class PawnMoveController : MonoBehaviour
                 targetPosition = bottomPosition;
                 break;
             case ActivityStatus.Sleep:
+                targetPosition = centerPosition;
                 break;
         }
 
@@ -87,12 +88,6 @@ public class PawnMoveController : MonoBehaviour
 
     private void Update()
     {
-        if(arrivedAtEatPosition)
-        {
-            InterpretPlayerMovement();
-            return;
-        }
-
         switch (currentActivityStatus)
         {
             case ActivityStatus.Wander:
@@ -105,32 +100,53 @@ public class PawnMoveController : MonoBehaviour
                 MoveToEatPosition();
                 break;
             case ActivityStatus.Sleep:
+                MoveToSleepPosition();
                 break;
+        }
+    }
+
+    private void MoveToSleepPosition()
+    {
+        if (!arrivedAtSleepPosition)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
+
+            if (transform.position == targetPosition)
+            {
+                OnPawnReachedSleepPosition?.Invoke();
+                arrivedAtSleepPosition = true;
+            }
         }
     }
 
     private void MoveToEatPosition()
     {
         if (!arrivedAtEatPosition)
+        {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
 
-        if (transform.position == targetPosition && !arrivedAtEatPosition)
-        {
-            OnPawnReachedEatPosition?.Invoke();
-            arrivedAtEatPosition = true;
-        }
+            if (transform.position == targetPosition)
+            {
+                OnPawnReachedEatPosition?.Invoke();
+                arrivedAtEatPosition = true;
+            }
+        }        
     }
 
     private void MoveToPlayPosition()
     {
         if(!arrivedAtPlayPosition)
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
-
-        if (transform.position == targetPosition && !arrivedAtPlayPosition)
         {
-            OnPawnReachedPlayPosition?.Invoke();
-            arrivedAtPlayPosition = true;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
+            
+            if (transform.position == targetPosition)
+            {
+                OnPawnReachedPlayPosition?.Invoke();
+                arrivedAtPlayPosition = true;
+            }
         }
+        else
+            InterpretPlayerMovement();
     }
 
     private void Wander()
