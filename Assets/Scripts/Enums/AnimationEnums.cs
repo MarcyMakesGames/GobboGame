@@ -5,5 +5,6 @@ public enum AnimationEnums
     Left = 3,
     Right = 4,
     Celebration = 5,
-    Negative = 6
+    Failure = 6,
+    Nightmare = 7
 }

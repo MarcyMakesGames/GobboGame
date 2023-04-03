@@ -17,8 +17,6 @@ public class PawnAnimatorController : MonoBehaviour
         if(onAnimationComplete != null)
             postAnimationAction.Enqueue(onAnimationComplete);
 
-        Debug.Log("Displaying animation: " + animationDirection.ToString());
-
         switch (animationDirection)
         {
             case AnimationEnums.Up:
@@ -36,8 +34,11 @@ public class PawnAnimatorController : MonoBehaviour
             case AnimationEnums.Celebration:
                 anim.SetTrigger("Celebration");
                 break;
-            case AnimationEnums.Negative:
+            case AnimationEnums.Failure:
                 anim.SetTrigger("NegativeSimon");
+                break;
+            case AnimationEnums.Nightmare:
+                anim.SetTrigger("Nightmare");
                 break;
             default:
                 Debug.Log("Couldn't find the corresponding animation!");
@@ -47,16 +48,13 @@ public class PawnAnimatorController : MonoBehaviour
 
     public void ResetTriggers()
     {
-        Debug.Log("Animation complete.");
-        if (postAnimationAction == null)
-            Debug.Log("Post animation action is null!");
-
         anim.ResetTrigger("MoveUp");
         anim.ResetTrigger("MoveDown");
         anim.ResetTrigger("MoveLeft");
         anim.ResetTrigger("MoveRight");
         anim.ResetTrigger("Celebration");
         anim.ResetTrigger("NegativeSimon");
+        anim.ResetTrigger("Nightmare");
 
         if(postAnimationAction.Count > 0)
             postAnimationAction.Dequeue()?.Invoke();

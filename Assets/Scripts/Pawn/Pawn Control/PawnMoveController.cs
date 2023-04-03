@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PawnMoveController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PawnMoveController : MonoBehaviour
     private float pauseTimer;
     private float pauseDuration;
     private bool isWalking = false;
+    private bool isSleeping = false;
 
     private ActivityStatus currentActivityStatus = ActivityStatus.Wander;
 
@@ -51,13 +53,16 @@ public class PawnMoveController : MonoBehaviour
                 targetPosition = GetRandomPosition();
                 break;
             case ActivityStatus.Play:
-                targetPosition = centerPosition;
+                targetPosition = bottomPosition;
+                SetTransformOrientation(bottomPosition);
                 break;
             case ActivityStatus.Eat:
                 targetPosition = bottomPosition;
+                SetTransformOrientation(bottomPosition);
                 break;
             case ActivityStatus.Sleep:
-                targetPosition = centerPosition;
+                targetPosition = bottomPosition;
+                SetTransformOrientation(bottomPosition);
                 break;
         }
 
@@ -78,16 +83,20 @@ public class PawnMoveController : MonoBehaviour
         bottomPosition = Camera.main.ScreenToWorldPoint(bottomPosition);
         bottomPosition = new Vector3(bottomPosition.x, bottomPosition.y, 0);
 
+        float bottomLimit = mainCamera.ScreenToWorldPoint(new Vector3(0, Screen.height / 3f, 0)).y;
+
         minPosition = new Vector3(mainCamera.transform.position.x - camWidth + transform.localScale.x,
-                                  mainCamera.transform.position.y - camHeight + transform.localScale.y,
+                                  mainCamera.transform.position.y - camHeight,
                                   transform.position.z);
 
         maxPosition = new Vector3(mainCamera.transform.position.x + camWidth - transform.localScale.x,
-                                  mainCamera.transform.position.y + camHeight - transform.localScale.y,
+                                  bottomLimit,
                                   transform.position.z);
 
         targetPosition = GetRandomPosition();
     }
+
+
 
     private void Update()
     {
@@ -113,12 +122,12 @@ public class PawnMoveController : MonoBehaviour
         if (!arrivedAtSleepPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
-            SetPawnAnimation(AnimationType.Walking);
+            SetPawnAnimation(MovementType.Walking);
 
             if (transform.position == targetPosition)
             {
                 transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-                SetPawnAnimation(AnimationType.Idle);
+                SetPawnAnimation(MovementType.Sleeping);
                 OnPawnReachedSleepPosition?.Invoke();
                 arrivedAtSleepPosition = true;
             }
@@ -130,12 +139,12 @@ public class PawnMoveController : MonoBehaviour
         if (!arrivedAtEatPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
-            SetPawnAnimation(AnimationType.Walking);
+            SetPawnAnimation(MovementType.Walking);
 
             if (transform.position == targetPosition)
             {
                 transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-                SetPawnAnimation(AnimationType.Idle);
+                SetPawnAnimation(MovementType.Idle);
                 OnPawnReachedEatPosition?.Invoke();
                 arrivedAtEatPosition = true;
             }
@@ -149,12 +158,12 @@ public class PawnMoveController : MonoBehaviour
         if(!arrivedAtPlayPosition)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
-            SetPawnAnimation(AnimationType.Walking);
+            SetPawnAnimation(MovementType.Walking);
 
             if (transform.position == targetPosition)
             {
                 transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-                SetPawnAnimation(AnimationType.Idle);
+                SetPawnAnimation(MovementType.Idle);
                 OnPawnReachedPlayPosition?.Invoke();
                 arrivedAtPlayPosition = true;
             }
@@ -166,7 +175,7 @@ public class PawnMoveController : MonoBehaviour
         if (!isPaused)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, wanderSpeed * Time.deltaTime);
-            SetPawnAnimation(AnimationType.Walking);
+            SetPawnAnimation(MovementType.Walking);
 
             if (transform.position == targetPosition)
             {
@@ -177,7 +186,7 @@ public class PawnMoveController : MonoBehaviour
         }
         else
         {
-            SetPawnAnimation(AnimationType.Idle);
+            SetPawnAnimation(MovementType.Idle);
             pauseTimer += Time.deltaTime;
 
             if (pauseTimer >= pauseDuration)
@@ -198,7 +207,7 @@ public class PawnMoveController : MonoBehaviour
                                                     new Vector3(Mathf.Clamp(transform.position.x - 1, minPosition.x, maxPosition.x),
                                                                             transform.position.y, transform.position.z),
                                                     playMoveSpeed * Time.deltaTime);
-            SetPawnAnimation(AnimationType.Walking);
+            SetPawnAnimation(MovementType.Walking);
             return;
         }
         if (Input.GetKey(KeyCode.D))
@@ -209,12 +218,12 @@ public class PawnMoveController : MonoBehaviour
                                                     playMoveSpeed * Time.deltaTime);
 
             Debug.Log("Moving right.");
-            SetPawnAnimation(AnimationType.Walking);
+            SetPawnAnimation(MovementType.Walking);
             return;
         }
 
         if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-            SetPawnAnimation(AnimationType.Idle);
+            SetPawnAnimation(MovementType.Idle);
     }
 
     private Vector3 GetRandomPosition()
@@ -222,34 +231,56 @@ public class PawnMoveController : MonoBehaviour
         Vector3 newPosition = new Vector3(Random.Range(minPosition.x, maxPosition.x), Random.Range(minPosition.y, maxPosition.y),
                                                         transform.position.z);
 
-        if (transform.position.x > newPosition.x)
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-        else
-            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+        SetTransformOrientation(newPosition);
 
         return newPosition;
     }
 
-    private void SetPawnAnimation(AnimationType animation)
+    private void SetTransformOrientation(Vector3 newPosition)
+    {
+        if (transform.position.x > newPosition.x)
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+        else
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+    }
+
+    private void SetPawnAnimation(MovementType animation)
     {
         switch (animation)
         {
-            case AnimationType.Idle:
+            case MovementType.Idle:
                 
                 if (!isWalking)
                     break;
 
+                Debug.Log("New animation type: " + animation.ToString());
                 pawnAnimator.SetBool("IsWalking", false);
+                pawnAnimator.SetBool("IsSleeping", false);
                 isWalking = false;
+                isSleeping = false;
                 break;
-            
-            case AnimationType.Walking:
+            case MovementType.Walking:
                 
                 if (isWalking)
                     break;
 
+                Debug.Log("New animation type: " + animation.ToString());
                 pawnAnimator.SetBool("IsWalking", true);
+                pawnAnimator.SetBool("IsSleeping", false);
                 isWalking = true;
+                isSleeping = false;
+                break;
+
+            case MovementType.Sleeping:
+
+                if (isSleeping)
+                    break;
+
+                Debug.Log("New animation type: " + animation.ToString());
+                pawnAnimator.SetBool("IsWalking", false);
+                pawnAnimator.SetBool("IsSleeping", true);
+                isSleeping = true;
+                isWalking = false;
                 break;
         }
     }

@@ -43,6 +43,7 @@ public class SleepGameManager : MonoBehaviour
                 break;
             case DreamType.Nightmare:
                 happyDreams--;
+                PawnManager.instance.SetAnimation(AnimationEnums.Nightmare);
                 AudioManager.instance.PlaySound(SoundType.Drop);
                 break;
         }

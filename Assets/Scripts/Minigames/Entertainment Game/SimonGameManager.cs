@@ -45,7 +45,7 @@ public class SimonGameManager : MonoBehaviour
     {
         if(currentGuessIndex > currentGame.Count)
         {
-            PawnManager.instance.SetAnimation(AnimationEnums.Negative, LoseGame);
+            PawnManager.instance.SetAnimation(AnimationEnums.Failure, LoseGame);
             return;
         }
 
@@ -65,7 +65,7 @@ public class SimonGameManager : MonoBehaviour
                 break;
             case AnimationEnums.Celebration:
                 break;
-            case AnimationEnums.Negative:
+            case AnimationEnums.Failure:
                 break;
         }
 
@@ -89,7 +89,7 @@ public class SimonGameManager : MonoBehaviour
         else
         {
             AudioManager.instance.PlaySound(SoundType.Failure);
-            PawnManager.instance.SetAnimation(AnimationEnums.Negative, LoseGame);
+            PawnManager.instance.SetAnimation(AnimationEnums.Failure, LoseGame);
         }
     }
 
