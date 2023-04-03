@@ -61,6 +61,37 @@ public class PawnAnimatorController : MonoBehaviour
         if(postAnimationAction.Count > 0)
             postAnimationAction.Dequeue()?.Invoke();
     }
+    
+    public void PlaySound(SoundType soundType)
+    {
+        switch (soundType)
+        {
+            case SoundType.highBlip:
+                AudioManager.instance.PlaySound(SoundType.highBlip);
+                break;
+            case SoundType.highMidBlip:
+                AudioManager.instance.PlaySound(SoundType.highMidBlip);
+                break;
+            case SoundType.LowMidBlip:
+                AudioManager.instance.PlaySound(SoundType.LowMidBlip);
+                break;
+            case SoundType.LowBlip:
+                AudioManager.instance.PlaySound(SoundType.LowBlip);
+                break;
+            case SoundType.Celebration:
+                AudioManager.instance.PlaySound(SoundType.Celebration);
+                break;
+            case SoundType.Failure:
+                AudioManager.instance.PlaySound(SoundType.Failure);
+                break;
+            case SoundType.Pickup:
+                AudioManager.instance.PlaySound(SoundType.Pickup);
+                break;
+            case SoundType.Drop:
+                AudioManager.instance.PlaySound(SoundType.Drop);
+                break;
+        }
+    }
 
     private void Awake()
     {

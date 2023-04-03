@@ -29,10 +29,14 @@ public class FoodDropGameManager : MonoBehaviour
     public void AddFoodToStack(GameObject stackObject)
     {
         if (stackObject.GetComponent<FoodItemController>().FoodType == selectedFoodType)
+        {
             foodStackController.AddObjectToStack(stackObject);
+            AudioManager.instance.PlaySound(SoundType.Pickup);
+        }
         else
         {
             foodStackController.AddObjectToStack(stackObject);
+            AudioManager.instance.PlaySound(SoundType.Drop);
             DropStack();
         }
     }
@@ -57,7 +61,21 @@ public class FoodDropGameManager : MonoBehaviour
         int selectedFoodIndex = Random.Range(0, foodPrefabs.Count);
         selectedFoodType = foodPrefabs[selectedFoodIndex].GetComponent<FoodItemController>().FoodType;
 
-        instructionsText.text = instructions + selectedFoodType.ToString() + " foods.";
+        switch (selectedFoodType)
+        {
+            case FoodType.Fish:
+                instructionsText.text = instructions + selectedFoodType.ToString() + ".";
+                break;
+            case FoodType.Hotdog:
+                instructionsText.text = instructions + selectedFoodType.ToString() + "s.";
+                break;
+            case FoodType.Chicken:
+                instructionsText.text = instructions + selectedFoodType.ToString() + ".";
+                break;
+            case FoodType.Burger:
+                instructionsText.text = instructions + selectedFoodType.ToString() + "s.";
+                break;
+        }
 
         foodStackController.StartNewGame(stackOffset);
         foodDropSpawner.StartGame(foodPrefabs, maxFoodCount, spawnDelay, selectedFoodIndex);
@@ -99,6 +117,11 @@ public class FoodDropGameManager : MonoBehaviour
     {
         gameIsOver = false;
         gameIsStarted = false;
+
+        if (foodStackController.StackCount > 0)
+            AudioManager.instance.PlaySound(SoundType.Celebration);
+        else
+            AudioManager.instance.PlaySound(SoundType.Failure);
 
         PawnManager.instance.Controller.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Hunger, foodStackController.StackCount);
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Eat);

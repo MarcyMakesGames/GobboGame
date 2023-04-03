@@ -39,9 +39,11 @@ public class SleepGameManager : MonoBehaviour
         {
             case DreamType.Dream:
                 happyDreams++;
+                AudioManager.instance.PlaySound(SoundType.Pickup);
                 break;
             case DreamType.Nightmare:
                 happyDreams--;
+                AudioManager.instance.PlaySound(SoundType.Drop);
                 break;
         }
 

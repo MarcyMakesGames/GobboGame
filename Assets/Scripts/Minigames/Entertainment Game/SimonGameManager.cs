@@ -49,6 +49,26 @@ public class SimonGameManager : MonoBehaviour
             return;
         }
 
+        switch (button)
+        {
+            case AnimationEnums.Up:
+                AudioManager.instance.PlaySound(SoundType.highBlip);
+                break;
+            case AnimationEnums.Down:
+                AudioManager.instance.PlaySound(SoundType.LowBlip);
+                break;
+            case AnimationEnums.Left:
+                AudioManager.instance.PlaySound(SoundType.highMidBlip);
+                break;
+            case AnimationEnums.Right:
+                AudioManager.instance.PlaySound(SoundType.LowMidBlip);
+                break;
+            case AnimationEnums.Celebration:
+                break;
+            case AnimationEnums.Negative:
+                break;
+        }
+
         if (currentGame[currentGuessIndex] == button)
         {
             currentGuessIndex++;
@@ -59,6 +79,7 @@ public class SimonGameManager : MonoBehaviour
 
                 if(currentGame.Count >= maxRounds)
                 {
+                    AudioManager.instance.PlaySound(SoundType.Celebration);
                     PawnManager.instance.SetAnimation(AnimationEnums.Celebration, WinGame);
                 }
                 else
@@ -66,7 +87,10 @@ public class SimonGameManager : MonoBehaviour
             }
         }
         else
+        {
+            AudioManager.instance.PlaySound(SoundType.Failure);
             PawnManager.instance.SetAnimation(AnimationEnums.Negative, LoseGame);
+        }
     }
 
 

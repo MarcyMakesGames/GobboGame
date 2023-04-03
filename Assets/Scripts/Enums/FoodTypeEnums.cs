@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum FoodType
 {
-    Circle,
-    Triangle,
-    Square
+    Fish,
+    Hotdog,
+    Chicken,
+    Burger
 }
