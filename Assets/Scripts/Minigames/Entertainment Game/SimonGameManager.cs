@@ -38,11 +38,17 @@ public class SimonGameManager : MonoBehaviour
         foreach(AnimationEnums direction in currentGame)
             currentRound.Enqueue(direction);
 
-        PawnManager.instance.SetAnimation(currentRound.Dequeue());
+        PawnManager.instance.SetAnimation(currentRound.Dequeue(), ShowNextMove);
     }
 
     public void CheckButton(AnimationEnums button)
     {
+        if(currentGuessIndex > currentGame.Count)
+        {
+            PawnManager.instance.SetAnimation(AnimationEnums.Negative, LoseGame);
+            return;
+        }
+
         if (currentGame[currentGuessIndex] == button)
         {
             currentGuessIndex++;
@@ -53,30 +59,26 @@ public class SimonGameManager : MonoBehaviour
 
                 if(currentGame.Count >= maxRounds)
                 {
-                    PawnManager.instance.SetAnimation(AnimationEnums.Celebration, CloseGame);
+                    PawnManager.instance.SetAnimation(AnimationEnums.Celebration, WinGame);
                 }
                 else
                     StartNewRound();
             }
         }
         else
-        {
-            PawnManager.instance.SetAnimation(AnimationEnums.Negative);
-            currentGame.Clear();
-            currentRound.Clear();
-        }
+            PawnManager.instance.SetAnimation(AnimationEnums.Negative, LoseGame);
     }
+
+
 
     private void OnEnable()
     {
-        PawnAnimatorController.OnAnimationComplete += ShowNextMove;
         PawnMoveController.OnPawnReachedPlayPosition += StartNewGame;
     }
 
     private void OnDisable()
     {
         PawnMoveController.OnPawnReachedPlayPosition -= StartNewGame;
-        PawnAnimatorController.OnAnimationComplete -= ShowNextMove;
         PawnManager.instance.MovePawnToWanderPosition();
 
         buttonTray.SetActive(false);
@@ -88,7 +90,6 @@ public class SimonGameManager : MonoBehaviour
     {
         if (currentRound == null)
             return;
-
         if (currentGame.Count == 0)
             StartNewGame();
 
@@ -100,11 +101,11 @@ public class SimonGameManager : MonoBehaviour
         }
         else
         {
-            PawnManager.instance.SetAnimation(currentRound.Dequeue());
+            PawnManager.instance.SetAnimation(currentRound.Dequeue(), ShowNextMove);
         }
     }
 
-    private void CloseGame()
+    private void WinGame()
     {
         buttonTray.SetActive(false);
         currentGame.Clear();
@@ -113,6 +114,20 @@ public class SimonGameManager : MonoBehaviour
 
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Play);
         PawnManager.instance.Controller.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, 7);
+
+        PawnManager.instance.MovePawnToWanderPosition();
+        gamePanelManager.ChangeGamePanel(PanelType.Stats);
+    }
+
+    private void LoseGame()
+    {
+        buttonTray.SetActive(false);
+        currentGame.Clear();
+        currentRound.Clear();
+        currentGuessIndex = 0;
+
+        PawnManager.instance.InteractedWithPawn(ActivityStatus.Play);
+        PawnManager.instance.Controller.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, -1);
 
         PawnManager.instance.MovePawnToWanderPosition();
         gamePanelManager.ChangeGamePanel(PanelType.Stats);

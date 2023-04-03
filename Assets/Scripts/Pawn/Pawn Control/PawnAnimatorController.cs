@@ -8,15 +8,16 @@ public class PawnAnimatorController : MonoBehaviour
     [SerializeField] private PawnController controller;
     [SerializeField] private Animator anim;
 
-    public delegate void AnimationComplete();
-    public static event AnimationComplete OnAnimationComplete;
+    private bool performingAnimation = false;
 
-    private Action postAnimationAction = null;
+    private Queue<Action> postAnimationAction = null;
 
     public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
     {
         if(onAnimationComplete != null)
-            postAnimationAction = onAnimationComplete;
+            postAnimationAction.Enqueue(onAnimationComplete);
+
+        Debug.Log("Displaying animation: " + animationDirection.ToString());
 
         switch (animationDirection)
         {
@@ -36,22 +37,33 @@ public class PawnAnimatorController : MonoBehaviour
                 anim.SetTrigger("Celebration");
                 break;
             case AnimationEnums.Negative:
+                anim.SetTrigger("NegativeSimon");
                 break;
             default:
-                Debug.Log("Couldn't find the corrresponding animation!");
+                Debug.Log("Couldn't find the corresponding animation!");
                 return;
         }
     }
 
     public void ResetTriggers()
     {
+        Debug.Log("Animation complete.");
+        if (postAnimationAction == null)
+            Debug.Log("Post animation action is null!");
+
         anim.ResetTrigger("MoveUp");
         anim.ResetTrigger("MoveDown");
         anim.ResetTrigger("MoveLeft");
         anim.ResetTrigger("MoveRight");
+        anim.ResetTrigger("Celebration");
+        anim.ResetTrigger("NegativeSimon");
 
-        OnAnimationComplete?.Invoke();
-        postAnimationAction?.Invoke();
-        postAnimationAction = null;
+        if(postAnimationAction.Count > 0)
+            postAnimationAction.Dequeue()?.Invoke();
+    }
+
+    private void Awake()
+    {
+        postAnimationAction = new Queue<Action>();
     }
 }
