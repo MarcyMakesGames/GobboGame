@@ -15,6 +15,7 @@ public class UserManager : MonoBehaviour
     private float quitCountdown = 2f;
     private bool quitGame = false;
     private bool hasUser = false;
+    private bool hasUpdated = false;
 
     public string Username { get => username; set => username = value; }
     public string Password { get; private set; }
@@ -25,15 +26,27 @@ public class UserManager : MonoBehaviour
         Password = password;
     }
 
-    public List<SessionData> CreateNewUserSessionDataList()
+    public List<SessionData> GetSessionDataList()
     {
-        sessionData = GetLastSessionData();
+        if (!hasUpdated)
+        {
+            sessionData.logoutTime = DateTime.Now;
+            sessionDataList.Add(sessionData);
 
-        sessionData.logoutTime = DateTime.Now;
+            Debug.Log("Saving logout time: " + sessionData.logoutTime);
+            hasUpdated = true;
+        }
+        else
+        {
+            sessionData.logoutTime = DateTime.Now;
+            sessionDataList[sessionDataList.Count - 1] = sessionData;
+            Debug.Log("Saving logout time: " + sessionData.logoutTime);
+        }
+
         return sessionDataList;
     }
 
-    public SessionData GetLastSessionData()
+    public SessionData GetPreviousSessionData()
     {
         if(sessionDataList.Count == 0)
         {
@@ -44,9 +57,14 @@ public class UserManager : MonoBehaviour
             return sessionDataList[sessionDataList.Count - 1];
     }
 
+    public SessionData GetCurrentSessionData()
+    {
+        return sessionData;
+    }
+
     public void LogInteraction(ActivityStatus activity)
     {
-        sessionData = GetLastSessionData();
+        sessionData = GetCurrentSessionData();
 
         switch (activity)
         {
@@ -66,7 +84,7 @@ public class UserManager : MonoBehaviour
                 break;
         }
 
-        SaveLoadManager.instance.SaveAccountData();
+        SaveLoadManager.instance.UpdateAccountData();
     }
 
     public void QuitGame()
@@ -109,6 +127,11 @@ public class UserManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        SaveLoadManager.OnPlayerDataUpdated -= InitializeUserData;
+    }
+
     private void InitializeUserData(SaveDataObject userSaveData)
     {
         if (userSaveData == null)
@@ -126,10 +149,8 @@ public class UserManager : MonoBehaviour
         else
         {
             sessionDataList = userSaveData.sessionDataList;
-
-            sessionDataList.Add(sessionData);
         }
 
-        sessionData = GetLastSessionData();
+        PawnManager.instance.InitializePawn(userSaveData);
     }
 }

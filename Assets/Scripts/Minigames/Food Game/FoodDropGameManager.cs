@@ -123,7 +123,7 @@ public class FoodDropGameManager : MonoBehaviour
         else
             AudioManager.instance.PlaySound(SoundType.Failure);
 
-        PawnManager.instance.Controller.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Hunger, foodStackController.StackCount);
+        PawnManager.instance.PawnController.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Hunger, foodStackController.StackCount);
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Eat);
         foodStackController.EatStack();
 

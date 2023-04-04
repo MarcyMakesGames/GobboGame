@@ -33,10 +33,14 @@ public class SaveLoadManager : MonoBehaviour
         spawner = GetComponent<PawnSpawner>();
     }
 
-    [ContextMenu("SaveGame")]
     public void SaveAccountData()
     {
-        saveController.SaveAccountData();
+        saveController.SaveAccountData(false);
+    }
+
+    public void UpdateAccountData()
+    {
+        saveController.SaveAccountData(true);
     }
 
     public void LoadAccountData(UserPassObject userPassObject)
@@ -52,10 +56,5 @@ public class SaveLoadManager : MonoBehaviour
     public void UpdatePlayerData(SaveDataObject data = null)
     {
         OnPlayerDataUpdated?.Invoke(data);
-
-        if(data != null)
-        {
-            spawner.SpawnNewPawn(data.pawnStatusContainer);
-        }
     }
 }

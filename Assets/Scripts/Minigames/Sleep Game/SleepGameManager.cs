@@ -92,7 +92,7 @@ public class SleepGameManager : MonoBehaviour
         gameIsOver = false;
         gameIsStarted = false;
 
-        PawnManager.instance.Controller.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Sleep, happyDreams);
+        PawnManager.instance.PawnController.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Sleep, happyDreams);
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Sleep);
 
         PawnManager.instance.MovePawnToWanderPosition();

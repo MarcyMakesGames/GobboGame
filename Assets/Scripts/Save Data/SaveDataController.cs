@@ -5,11 +5,17 @@ using System.Collections.Generic;
 
 public class SaveDataController
 {
-    public void SaveAccountData()
+    public void SaveAccountData(bool loggingOut = false)
     {
         SaveDataObject currentData = new SaveDataObject();
-        PawnStatusController pawnStatus = PawnManager.instance.Controller.PawnStatusController;
-        List<SessionData> sessionDataList = UserManager.instance.CreateNewUserSessionDataList();
+        PawnStatusController pawnStatus = PawnManager.instance.PawnController.PawnStatusController;
+
+        List<SessionData> sessionDataList;
+
+        if (loggingOut)
+            sessionDataList = UserManager.instance.GetSessionDataList();
+        else
+            sessionDataList = UserManager.instance.GetSessionDataList();
 
         currentData.pawnStatusContainer = new PawnStatusContainer();
         currentData.pawnStatusContainer.MentalStatusContainer = new PawnMentalStatusContainer();

@@ -199,10 +199,8 @@ public class PawnMoveController : MonoBehaviour
 
     private void InterpretPlayerMovement()
     {
-        Debug.Log("Interpreting player movement.");
         if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("Moving left.");
             transform.position = Vector3.MoveTowards(transform.position,
                                                     new Vector3(Mathf.Clamp(transform.position.x - 1, minPosition.x, maxPosition.x),
                                                                             transform.position.y, transform.position.z),
@@ -217,7 +215,6 @@ public class PawnMoveController : MonoBehaviour
                                                                             transform.position.y, transform.position.z),
                                                     playMoveSpeed * Time.deltaTime);
 
-            Debug.Log("Moving right.");
             SetPawnAnimation(MovementType.Walking);
             return;
         }
@@ -253,7 +250,6 @@ public class PawnMoveController : MonoBehaviour
                 if (!isWalking)
                     break;
 
-                Debug.Log("New animation type: " + animation.ToString());
                 pawnAnimator.SetBool("IsWalking", false);
                 pawnAnimator.SetBool("IsSleeping", false);
                 isWalking = false;
@@ -264,7 +260,6 @@ public class PawnMoveController : MonoBehaviour
                 if (isWalking)
                     break;
 
-                Debug.Log("New animation type: " + animation.ToString());
                 pawnAnimator.SetBool("IsWalking", true);
                 pawnAnimator.SetBool("IsSleeping", false);
                 isWalking = true;
@@ -276,7 +271,6 @@ public class PawnMoveController : MonoBehaviour
                 if (isSleeping)
                     break;
 
-                Debug.Log("New animation type: " + animation.ToString());
                 pawnAnimator.SetBool("IsWalking", false);
                 pawnAnimator.SetBool("IsSleeping", true);
                 isSleeping = true;

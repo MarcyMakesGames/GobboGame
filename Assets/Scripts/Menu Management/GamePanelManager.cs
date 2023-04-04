@@ -64,7 +64,7 @@ public class GamePanelManager : MonoBehaviour
                 foodPanel.SetActive(false);
                 sleepPanel.SetActive(false);
                 statsPanel.SetActive(true);
-                UpdateStatsPanel(PawnManager.instance.Controller.PawnStatusController);
+                UpdateStatsPanel(PawnManager.instance.PawnController.PawnStatusController);
                 break;
         }
     }
@@ -79,6 +79,6 @@ public class GamePanelManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateStatsPanel(PawnManager.instance.Controller.PawnStatusController);
+        UpdateStatsPanel(PawnManager.instance.PawnController.PawnStatusController);
     }
 }

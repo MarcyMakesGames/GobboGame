@@ -34,7 +34,6 @@ public class FoodDropSpawner : MonoBehaviour
 
         if (garbageDisposal == null)
         {
-            Debug.Log("Spawning new garbage disposal.");
             Vector3 bottomEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
             garbageDisposal = Instantiate(garbageDisposalPrefab, bottomEdge, Quaternion.identity);
         }

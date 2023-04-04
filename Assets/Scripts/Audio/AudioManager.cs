@@ -15,7 +15,6 @@ public class AudioManager : MonoBehaviour
     private float masterVolume = 1f;
     private float sfxAudioVolume = .5f;
     private float bgmAudioVolume = .5f;
-    private float dialogueAudioVolume = .5f;
 
 
     public static AudioManager instance;

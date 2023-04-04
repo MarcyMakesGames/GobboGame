@@ -8,8 +8,6 @@ public class PawnAnimatorController : MonoBehaviour
     [SerializeField] private PawnController controller;
     [SerializeField] private Animator anim;
 
-    private bool performingAnimation = false;
-
     private Queue<Action> postAnimationAction = null;
 
     public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)

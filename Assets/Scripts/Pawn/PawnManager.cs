@@ -9,48 +9,75 @@ public class PawnManager : MonoBehaviour
     public static PawnManager instance;
 
     [SerializeField] private GamePanelManager gamePanelManager;
+    [Space]
+    [SerializeField] private GameObject pawnPrefab;
+    [SerializeField] private Transform pawnAnchor;
 
-    private PawnController controller;
-
-    public PawnController Controller { get => controller; }
-    public GameObject PawnObject { get => controller.gameObject; }
+    private PawnController pawnController;
+    private GameObject pawnObject;
+    public PawnController PawnController { get => pawnController; }
+    public GameObject PawnObject { get => pawnObject; }
 
     public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
     {
-        controller.SetAnimation(animationDirection, onAnimationComplete);
+        pawnController.SetAnimation(animationDirection, onAnimationComplete);
     }
 
-    public void AssignNewPawnController(PawnController newPawn, PawnStatusContainer pawnStatusContainer)
+    public void InitializePawn(SaveDataObject data)
     {
-        controller = newPawn;
-        controller.InitPawnController(pawnStatusContainer);
+        SpawnNewPawn(data.pawnStatusContainer);
+        pawnController.InitPawnController(data.pawnStatusContainer);
 
         UpdatePawnSinceLastLogin();
     }
 
     public void MovePawnToPlayPosition()
     {
-        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Play);
+        pawnController.PawnMoveController.MovePawnToPosition(ActivityStatus.Play);
     }
 
     public void MovePawnToFeedingPosition()
     {
-        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Eat);
+        pawnController.PawnMoveController.MovePawnToPosition(ActivityStatus.Eat);
     }
 
     public void MovePawnToSleepingPosition()
     {
-        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Sleep);
+        pawnController.PawnMoveController.MovePawnToPosition(ActivityStatus.Sleep);
     }
 
     public void MovePawnToWanderPosition()
     {
-        controller.PawnMoveController.MovePawnToPosition(ActivityStatus.Wander);
+        pawnController.PawnMoveController.MovePawnToPosition(ActivityStatus.Wander);
     }
 
     public void InteractedWithPawn(ActivityStatus activityStatus)
     {
         UserManager.instance.LogInteraction(activityStatus);
+    }
+
+    public void UpdateStatus(MentalStatus newStatus, int magnitude)
+    {
+        if (newStatus == MentalStatus.None)
+            return;
+
+        pawnController.UpdateMentalStatus(newStatus, magnitude);
+    }
+
+    public void UpdateStatus(PhysicalStatus newStatus, int magnitude)
+    {
+        if(newStatus == PhysicalStatus.None)
+            return;
+
+        pawnController.UpdatePhysicalStatus(newStatus, magnitude);
+    }
+
+    public void UpdateStatus(NeedStatus newStatus, int magnitude)
+    {
+        if (newStatus == NeedStatus.None)
+            return;
+
+        pawnController.UpdateNeedStatus(newStatus, magnitude);
     }
 
     private void Awake()
@@ -67,12 +94,22 @@ public class PawnManager : MonoBehaviour
         }
     }
 
+    private void SpawnNewPawn(PawnStatusContainer pawnStatusContainer)
+    {
+        pawnObject = Instantiate(pawnPrefab, pawnAnchor);
+        pawnController = pawnObject.GetComponent<PawnController>();
+    }
+
     private void UpdatePawnSinceLastLogin()
     {
-        SessionData sessionData = UserManager.instance.GetLastSessionData();
+        SessionData sessionData = UserManager.instance.GetPreviousSessionData();
 
         if(sessionData == null || sessionData.logoutTime.Year == 0001)
         {
+            if (sessionData == null)
+                Debug.Log("Invalid session data.");
+            else
+                Debug.Log("Invalid session time:" + sessionData.logoutTime);
             return;
         }
         else
@@ -82,13 +119,16 @@ public class PawnManager : MonoBehaviour
             TimeSpan timeSpan = currentTime - lastLogin;
             
             for (int i = 0; i < (int)timeSpan.TotalHours; i++)
+            {
                 IncrementAllStatuses();
+                Debug.Log("Updating statuses.");
+            }
         }
     }
 
     private void IncrementAllStatuses()
     {
-        controller.PawnStatusController.IncrementAllStatuses();
-        gamePanelManager.UpdateStatsPanel(controller.PawnStatusController);
+        pawnController.PawnStatusController.IncrementAllStatuses();
+        gamePanelManager.UpdateStatsPanel(pawnController.PawnStatusController);
     }
 }

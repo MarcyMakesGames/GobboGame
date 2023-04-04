@@ -34,6 +34,21 @@ public class PawnController : MonoBehaviour, IUpdateOnHour
         animatorController.SetAnimation(animationDirection, onAnimationComplete);
     }
 
+    public void UpdateMentalStatus(MentalStatus newStatus, int magnitude)
+    {
+        statusController.UpdateMentalStatus(newStatus, magnitude);
+    }
+
+    public void UpdatePhysicalStatus(PhysicalStatus newStatus, int magnitude)
+    {
+        statusController.UpdatePhysicalStatus(newStatus, magnitude);
+    }
+
+    public void UpdateNeedStatus(NeedStatus needStatus, int magnitude)
+    {
+        statusController.UpdateNeedStatus(needStatus, magnitude);
+    }
+
     private void Awake()
     {
         statusController = new PawnStatusController();
