@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
 
     private float masterVolume = 1f;
     private float sfxAudioVolume = .5f;
-    private float bgmAudioVolume = .5f;
+    [SerializeField] private float bgmAudioVolume = .5f;
 
 
     public static AudioManager instance;
@@ -45,6 +45,8 @@ public class AudioManager : MonoBehaviour
         }
 
         bgmAudioSource.loop = true;
+        bgmAudioSource.volume = bgmAudioVolume;
+        bgmAudioSource.Play();
 
         //We'll use this if we develop a playerprefs setup for players.
         //MasterVolume = GameManager.Instance.Config.MasterVolume;
