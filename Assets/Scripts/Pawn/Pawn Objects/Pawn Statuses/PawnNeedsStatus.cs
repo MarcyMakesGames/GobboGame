@@ -37,27 +37,39 @@ public class PawnNeedsStatus
                 break;
             case NeedStatus.Hunger:
                 hunger = Mathf.Clamp(hunger + magnitude, 0, statMax);
-                if (magnitude >= 1 && happiness < 4)
+
+                if (hunger <= 4)
+                    HistoryManager.instance.PostNeedStatusEvent(NeedStatus.Hunger);
+
+                if (hunger >= 7 && happiness < statMax)
                     happiness++;
                 break;
+
             case NeedStatus.Sleep:
                 sleep = Mathf.Clamp(sleep + magnitude, 0, statMax);
-                if (magnitude >= 1 && happiness < 4)
+                
+                if (sleep <= 4)
+                    HistoryManager.instance.PostNeedStatusEvent(NeedStatus.Sleep);
+
+                if (sleep >= 7 && happiness < statMax)
                     happiness++;
                 break;
+
             case NeedStatus.Entertainment:
                 entertainment = Mathf.Clamp(entertainment + magnitude, 0, statMax);
-                if (magnitude >= 1 && happiness < 4)
+
+                if (entertainment <= 4)
+                    HistoryManager.instance.PostNeedStatusEvent(NeedStatus.Entertainment);
+
+                if (entertainment >= 7 && happiness < statMax)
                     happiness++;
                 break;
+
             case NeedStatus.Happiness:
                 happiness = Mathf.Clamp(happiness + magnitude, 0, statMax);
-                if (magnitude >= 1 && happiness < 4)
-                    happiness++;
                 break;
-        }
 
-        //Need some kind of way to update the UI for this.
+        }
     }
 
     public void IncrementAllStatuses()

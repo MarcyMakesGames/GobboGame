@@ -181,6 +181,12 @@ MonoBehaviour:
   hungryEventSO: {fileID: 11400000, guid: 9a177f402e23e09459ff4718026a44eb, type: 2}
   tiredEventSO: {fileID: 11400000, guid: bd4f5d34055ed5146bebc85128779686, type: 2}
   boredEventSO: {fileID: 11400000, guid: f481dde4698fa974290929b268b1ef75, type: 2}
+  positiveFeedEventSO: {fileID: 11400000, guid: 72436d3a02302b148acc8f772c0f51dd, type: 2}
+  positiveRestedEventSO: {fileID: 11400000, guid: 4ca0ed4f309a3564c96ba4f9aba6ccbb, type: 2}
+  positivePlayedEventSO: {fileID: 11400000, guid: 4afe89bcd52446b4da7bbc196773326a, type: 2}
+  negativeFeedEventSO: {fileID: 11400000, guid: 6ecd35e42dc314e47b00b54e3cd2015c, type: 2}
+  negativeRestedEventSO: {fileID: 11400000, guid: 8afe75f3550b80b4aba9c78d889dfea3, type: 2}
+  negativePlayedEventSO: {fileID: 11400000, guid: 62dc92b9bebf2b748a26f0fe25c561d5, type: 2}
   historyTextController: {fileID: 1119334582}
 --- !u!1 &64338694
 GameObject:

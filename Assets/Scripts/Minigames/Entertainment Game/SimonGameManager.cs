@@ -138,6 +138,7 @@ public class SimonGameManager : MonoBehaviour
 
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Play);
         PawnManager.instance.PawnController.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, 7);
+        HistoryManager.instance.PostInteractionEvent(NeedStatus.Entertainment, true);
 
         PawnManager.instance.MovePawnToWanderPosition();
         gamePanelManager.ChangeGamePanel(PanelType.Stats);
@@ -152,6 +153,7 @@ public class SimonGameManager : MonoBehaviour
 
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Play);
         PawnManager.instance.PawnController.PawnStatusController.UpdateNeedStatus(NeedStatus.Entertainment, -1);
+        HistoryManager.instance.PostInteractionEvent(NeedStatus.Entertainment, false);
 
         PawnManager.instance.MovePawnToWanderPosition();
         gamePanelManager.ChangeGamePanel(PanelType.Stats);

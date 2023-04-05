@@ -119,9 +119,15 @@ public class FoodDropGameManager : MonoBehaviour
         gameIsStarted = false;
 
         if (foodStackController.StackCount > 0)
+        {
             AudioManager.instance.PlaySound(SoundType.Celebration);
+            HistoryManager.instance.PostInteractionEvent(NeedStatus.Hunger, true);
+        }
         else
+        {
             AudioManager.instance.PlaySound(SoundType.Failure);
+            HistoryManager.instance.PostInteractionEvent(NeedStatus.Hunger, false);
+        }
 
         PawnManager.instance.PawnController.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Hunger, foodStackController.StackCount);
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Eat);

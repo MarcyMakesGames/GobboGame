@@ -95,6 +95,11 @@ public class SleepGameManager : MonoBehaviour
         PawnManager.instance.PawnController.PawnStatusController.NeedsStatus.UpdateNeedsStatus(NeedStatus.Sleep, happyDreams);
         PawnManager.instance.InteractedWithPawn(ActivityStatus.Sleep);
 
+        if (happyDreams > 0)
+            HistoryManager.instance.PostInteractionEvent(NeedStatus.Sleep, true);
+        else
+            HistoryManager.instance.PostInteractionEvent(NeedStatus.Sleep, false);
+
         PawnManager.instance.MovePawnToWanderPosition();
         gamePanelManager.ChangeGamePanel(PanelType.Stats);
     }
