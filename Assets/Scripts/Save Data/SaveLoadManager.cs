@@ -9,7 +9,6 @@ public class SaveLoadManager : MonoBehaviour
 {
     public static SaveLoadManager instance;
 
-    private PawnSpawner spawner;
     private SaveDataController saveController;
 
     public delegate void onPlayerDataUpdated(SaveDataObject data);
@@ -30,7 +29,6 @@ public class SaveLoadManager : MonoBehaviour
         }
 
         saveController = new SaveDataController();
-        spawner = GetComponent<PawnSpawner>();
     }
 
     public void SaveAccountData()

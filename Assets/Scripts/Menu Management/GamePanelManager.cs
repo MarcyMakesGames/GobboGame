@@ -11,12 +11,17 @@ public class GamePanelManager : MonoBehaviour
     [SerializeField] private GameObject sleepPanel;
     [SerializeField] private GameObject entertainmentPanel;
     [Space]
+    [SerializeField] private CanvasGroup panelControlGroup;
+    [SerializeField] private float panelControlMinAlpha = 0.5f;
+    [SerializeField] private float panelControlMaxAlpha = 1f;
+    [Space]
     [SerializeField] private Slider happinessSlider;
     [SerializeField] private Slider foodSlider;
     [SerializeField] private Slider sleepSlider;
     [SerializeField] private Slider entertainmentSlider;
 
     private PanelType currentPanelStatus = PanelType.Stats;
+    private bool fadeIn = false;
 
     public void ChangeGamePanel(PanelType panel)
     {
@@ -71,14 +76,31 @@ public class GamePanelManager : MonoBehaviour
 
     public void UpdateStatsPanel(PawnStatusController pawnStatusController)
     {
+        Debug.Log("Updating stats panel.");
         happinessSlider.value = pawnStatusController.GetHappinessPercent();
         foodSlider.value = pawnStatusController.GetHungerPercent();
         sleepSlider.value = pawnStatusController.GetSleepPercent();
         entertainmentSlider.value = pawnStatusController.GetEntertainmentPercent();
+
+        fadeIn = true;
     }
 
-    private void Start()
+    private void Update()
     {
-        UpdateStatsPanel(PawnManager.instance.PawnController.PawnStatusController);
+        CheckFadePanelControlGroup();
+    }
+
+    private void CheckFadePanelControlGroup()
+    {
+        if (panelControlGroup.alpha >= panelControlMaxAlpha)
+            fadeIn = false;
+
+        if (fadeIn)
+        {
+            panelControlGroup.alpha += Time.deltaTime;
+
+            if (panelControlGroup.alpha >= panelControlMaxAlpha)
+                fadeIn = false;
+        }
     }
 }

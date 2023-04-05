@@ -12,10 +12,12 @@ public class UserManager : MonoBehaviour
     [SerializeField] private SessionData sessionData;
     [SerializeField] private List<SessionData> sessionDataList;
 
+    private SaveDataObject saveData;
+
     private float quitCountdown = 2f;
     private bool quitGame = false;
     private bool hasUser = false;
-    private bool hasUpdated = false;
+    private bool hasUpdatedSaveData = false;
 
     public string Username { get => username; set => username = value; }
     public string Password { get; private set; }
@@ -28,13 +30,13 @@ public class UserManager : MonoBehaviour
 
     public List<SessionData> GetSessionDataList()
     {
-        if (!hasUpdated)
+        if (!hasUpdatedSaveData)
         {
             sessionData.logoutTime = DateTime.Now;
             sessionDataList.Add(sessionData);
 
             Debug.Log("Saving logout time: " + sessionData.logoutTime);
-            hasUpdated = true;
+            hasUpdatedSaveData = true;
         }
         else
         {
@@ -137,8 +139,7 @@ public class UserManager : MonoBehaviour
         if (userSaveData == null)
             return;
 
-        hasUser = true;
-
+        saveData = userSaveData;
         sessionData = new SessionData();
         sessionData.loginTime = DateTime.Now;
 
@@ -151,6 +152,8 @@ public class UserManager : MonoBehaviour
             sessionDataList = userSaveData.sessionDataList;
         }
 
-        PawnManager.instance.InitializePawn(userSaveData);
+        hasUser = true;
+
+        PawnManager.instance.InitializePawn(saveData);
     }
 }

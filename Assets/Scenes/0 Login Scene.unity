@@ -1048,7 +1048,6 @@ GameObject:
   m_Component:
   - component: {fileID: 199522400}
   - component: {fileID: 199522401}
-  - component: {fileID: 199522402}
   m_Layer: 0
   m_Name: Save Load Manager
   m_TagString: Untagged
@@ -1081,18 +1080,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a75f43c89f5c07b4ba72bcbb7959e470, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &199522402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199522398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad357d4cbdfc7684cbdc2dfdbf29b1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &232165220
@@ -5759,6 +5746,7 @@ GameObject:
   - component: {fileID: 1140322825}
   - component: {fileID: 1140322828}
   - component: {fileID: 1140322827}
+  - component: {fileID: 1140322831}
   - component: {fileID: 1140322830}
   - component: {fileID: 1140322829}
   m_Layer: 5
@@ -5858,10 +5846,25 @@ MonoBehaviour:
   foodPanel: {fileID: 1949906407}
   sleepPanel: {fileID: 1376956964}
   entertainmentPanel: {fileID: 858806481}
+  panelControlGroup: {fileID: 1140322831}
+  panelControlMinAlpha: 0
+  panelControlMaxAlpha: 1
   happinessSlider: {fileID: 697999156}
   foodSlider: {fileID: 297825567}
   sleepSlider: {fileID: 763710348}
   entertainmentSlider: {fileID: 1376976439}
+--- !u!225 &1140322831
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140322824}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1147824923
 GameObject:
   m_ObjectHideFlags: 0

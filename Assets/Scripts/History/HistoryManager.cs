@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HistoryManager : MonoBehaviour, IUpdateOnHalfHour
+public class HistoryManager : MonoBehaviour, IUpdateOnQuarterHour
 {
+    public static HistoryManager instance;
+
     [SerializeField] private List<HistoricalEventSO> historicalEventSOs;
     [SerializeField] private HistoricalEventSO hungryEventSO;
     [SerializeField] private HistoricalEventSO tiredEventSO;
@@ -11,9 +13,23 @@ public class HistoryManager : MonoBehaviour, IUpdateOnHalfHour
     [Space]
     [SerializeField] private HistoryTextController historyTextController;
 
-    public void UpdateOnHalfHour()
+    public void UpdateOnQuarterHour()
     {
         PostNewEvent();
+    }
+
+    public void PostNewEvent(HistoricalEventSO eventSO = null)
+    {
+        HistoricalEventSO currentEvent;
+
+        if (eventSO == null)
+            currentEvent = GetRandomHistoricalEvent();
+        else
+            currentEvent = eventSO;
+
+        PawnManager.instance.UpdateStatus(currentEvent.EventEffect, currentEvent.EffectMagnitude);
+
+        historyTextController.AddNewEvent(currentEvent.EventText);
     }
 
     public void PostNeedStatusEvent(NeedStatus needStatus)
@@ -36,25 +52,18 @@ public class HistoryManager : MonoBehaviour, IUpdateOnHalfHour
         }
     }
 
-    [ContextMenu("Post Test Event")]
-    private void PostNewEvent()
+    private void Awake()
     {
-        PostNewEvent(null);
-    }
-
-    private void PostNewEvent(HistoricalEventSO eventSO = null)
-    {
-        HistoricalEventSO currentEvent;
-
-        if (eventSO == null)
-            currentEvent = GetRandomHistoricalEvent();
+        if(instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
         else
-            currentEvent = eventSO;
-
-        PawnManager.instance.UpdateStatus(currentEvent.EventEffect, currentEvent.EffectMagnitude);
-
-        historyTextController.AddNewEvent(currentEvent.EventText);
+        {
+            instance = this;
+        }
     }
+
 
     private HistoricalEventSO GetRandomHistoricalEvent()
     {

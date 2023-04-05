@@ -6,15 +6,15 @@ using UnityEngine;
 public class DateTimeManager : MonoBehaviour
 {
     private Timer hourlyTimer;
-    private Timer halfHourlyTimer;
+    private Timer quarterHourlyTimer;
     private DateTime now;
-    private DateTime nextHalfHour;
+    private DateTime nextQuarterHour;
     private DateTime nextHour;
     private TimeSpan timeUntilNextHour;
-    private TimeSpan timeUntilNextHalfHour;
+    private TimeSpan timeUntilNextQuarterHour;
 
     private List<IUpdateOnHour> updateOnHourList;
-    private List<IUpdateOnHalfHour> updateOnHalfHourList;
+    private List<IUpdateOnQuarterHour> updateOnQuarterHourList;
 
     public static DateTimeManager instance;
 
@@ -23,9 +23,9 @@ public class DateTimeManager : MonoBehaviour
         updateOnHourList.Add(observer);
     }
 
-    public void SubscribeToHalfHourlyUpdate(IUpdateOnHalfHour observer)
+    public void SubscribeToQuarterHourlyUpdate(IUpdateOnQuarterHour observer)
     {
-        updateOnHalfHourList.Add(observer);
+        updateOnQuarterHourList.Add(observer);
     }
 
     public void DetachFromHourlyUpdate(IUpdateOnHour observer)
@@ -33,9 +33,9 @@ public class DateTimeManager : MonoBehaviour
         updateOnHourList.Remove(observer);
     }
 
-    public void DetachFromHalfHourlyUpdate(IUpdateOnHalfHour observer)
+    public void DetachFromQuarterHourlyUpdate(IUpdateOnQuarterHour observer)
     {
-        updateOnHalfHourList.Remove(observer);
+        updateOnQuarterHourList.Remove(observer);
     }
 
     private void Awake()
@@ -64,23 +64,26 @@ public class DateTimeManager : MonoBehaviour
         hourlyTimer.AutoReset = true;
         hourlyTimer.Start();
 
-        if (now.Hour == 23 && now.Minute >= 30)
-            nextHalfHour = new DateTime(now.Year, now.Month, now.Day + 1, 0, 0, 0);
+        if (now.Hour == 23 && now.Minute >= 45)
+            nextQuarterHour = new DateTime(now.Year, now.Month, now.Day + 1, 0, 0, 0);
+        else if (now.Minute >= 45)
+            nextQuarterHour = new DateTime(now.Year, now.Month, now.Day, now.Hour + 1, 0, 0);
         else if (now.Minute >= 30)
-            nextHalfHour = new DateTime(now.Year, now.Month, now.Day, now.Hour + 1, 0, 0);
+            nextQuarterHour = new DateTime(now.Year, now.Month, now.Day, now.Hour, 45, 0);
+        else if (now.Minute >= 15)
+            nextQuarterHour = new DateTime(now.Year, now.Month, now.Day, now.Hour, 30, 0);
         else
-            nextHalfHour = new DateTime(now.Year, now.Month, now.Day, now.Hour, 30, 0);
+            nextQuarterHour = new DateTime(now.Year, now.Month, now.Day, now.Hour, 15, 0);
 
-        timeUntilNextHalfHour = nextHalfHour - now;
-        halfHourlyTimer = new Timer(timeUntilNextHalfHour.TotalMilliseconds);
-        halfHourlyTimer.Elapsed += OnHalfHourChanged;
-        halfHourlyTimer.AutoReset = true;
-        halfHourlyTimer.Start();
+        timeUntilNextQuarterHour = nextQuarterHour - now;
+        quarterHourlyTimer = new Timer(timeUntilNextQuarterHour.TotalMilliseconds);
+        quarterHourlyTimer.Elapsed += OnQuarterHourChanged;
+        quarterHourlyTimer.AutoReset = true;
+        quarterHourlyTimer.Start();
 
         updateOnHourList = new List<IUpdateOnHour>();
+        updateOnQuarterHourList = new List<IUpdateOnQuarterHour>();
     }
-
-
 
     private void OnDestroy()
     {
@@ -92,12 +95,12 @@ public class DateTimeManager : MonoBehaviour
                 DetachFromHourlyUpdate(observer);
         }
 
-        List<IUpdateOnHalfHour> halfListCopy = new List<IUpdateOnHalfHour>(updateOnHalfHourList);
+        List<IUpdateOnQuarterHour> quarterListCopy = new List<IUpdateOnQuarterHour>(updateOnQuarterHourList);
 
-        foreach (IUpdateOnHalfHour observer in halfListCopy)
+        foreach (IUpdateOnQuarterHour observer in quarterListCopy)
         {
-            if (updateOnHalfHourList.Contains(observer))
-                DetachFromHalfHourlyUpdate(observer);
+            if (updateOnQuarterHourList.Contains(observer))
+                DetachFromQuarterHourlyUpdate(observer);
         }
     }
 
@@ -111,14 +114,14 @@ public class DateTimeManager : MonoBehaviour
         hourlyTimer.Interval = timeUntilNextHour.TotalMilliseconds;
     }
 
-    private void OnHalfHourChanged(object sender, ElapsedEventArgs e)
+    private void OnQuarterHourChanged(object sender, ElapsedEventArgs e)
     {
-        UpdateOnHalfHour();
+        UpdateOnQuarterHour();
 
         now = DateTime.Now;
-        nextHalfHour = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute >= 30 ? 30 : 0, 0).AddMinutes(30);
-        timeUntilNextHalfHour = nextHalfHour - now;
-        halfHourlyTimer.Interval = timeUntilNextHalfHour.TotalMilliseconds;
+        nextQuarterHour = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute < 15 ? 0 : now.Minute < 30 ? 15 : now.Minute < 45 ? 30 : 45, 0).AddMinutes(15);
+        timeUntilNextQuarterHour = nextQuarterHour - now;
+        quarterHourlyTimer.Interval = timeUntilNextQuarterHour.TotalMilliseconds;
     }
 
     private void UpdateOnHour()
@@ -127,12 +130,9 @@ public class DateTimeManager : MonoBehaviour
             observer.UpdateOnHour();
     }
 
-    private void UpdateOnHalfHour()
+    private void UpdateOnQuarterHour()
     {
-        foreach (IUpdateOnHalfHour observer in updateOnHalfHourList)
-            observer.UpdateOnHalfHour();
+        foreach (IUpdateOnQuarterHour observer in updateOnQuarterHourList)
+            observer.UpdateOnQuarterHour();
     }
 }
-
-
-

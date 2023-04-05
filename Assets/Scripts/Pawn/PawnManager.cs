@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PawnManager : MonoBehaviour
+public class PawnManager : MonoBehaviour, IUpdateOnHour
 {
     public static PawnManager instance;
+    public PawnController PawnController { get => pawnController; }
+    public GameObject PawnObject { get => pawnObject; }
 
     [SerializeField] private GamePanelManager gamePanelManager;
     [Space]
@@ -15,20 +17,22 @@ public class PawnManager : MonoBehaviour
 
     private PawnController pawnController;
     private GameObject pawnObject;
-    public PawnController PawnController { get => pawnController; }
-    public GameObject PawnObject { get => pawnObject; }
+
+    private bool delayLoad = false;
+    private float delayLoadTimer = 1f;
+
+    public void InitializePawn(SaveDataObject data)
+    {
+        Debug.Log("Initializing pawn.");
+        SpawnNewPawn(data.pawnStatusContainer);
+        pawnController.InitPawnController(data.pawnStatusContainer);
+
+        delayLoad = true;
+    }
 
     public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
     {
         pawnController.SetAnimation(animationDirection, onAnimationComplete);
-    }
-
-    public void InitializePawn(SaveDataObject data)
-    {
-        SpawnNewPawn(data.pawnStatusContainer);
-        pawnController.InitPawnController(data.pawnStatusContainer);
-
-        UpdatePawnSinceLastLogin();
     }
 
     public void MovePawnToPlayPosition()
@@ -94,6 +98,26 @@ public class PawnManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        DateTimeManager.instance.SubscribeToHourlyUpdate(this);
+    }
+
+    private void Update()
+    {
+        if (delayLoad)
+        {
+            delayLoadTimer -= Time.deltaTime;
+
+            if (delayLoadTimer <= 0)
+            {
+                Debug.Log("Delayed load complete.");
+                UpdatePawnSinceLastLogin();
+                delayLoad = false;
+            }
+        }
+    }
+
     private void SpawnNewPawn(PawnStatusContainer pawnStatusContainer)
     {
         pawnObject = Instantiate(pawnPrefab, pawnAnchor);
@@ -107,9 +131,9 @@ public class PawnManager : MonoBehaviour
         if(sessionData == null || sessionData.logoutTime.Year == 0001)
         {
             if (sessionData == null)
-                Debug.Log("Invalid session data.");
+                Debug.Log("No previous session data found.");
             else
-                Debug.Log("Invalid session time:" + sessionData.logoutTime);
+                Debug.Log("Invalid session time: " + sessionData.logoutTime + ". If this was in error, please contact an administrator.");
             return;
         }
         else
@@ -117,18 +141,30 @@ public class PawnManager : MonoBehaviour
             DateTime currentTime = DateTime.Now;
             DateTime lastLogin = sessionData.logoutTime;
             TimeSpan timeSpan = currentTime - lastLogin;
-            
+            Debug.Log("Previous session logout time: " + sessionData.logoutTime + ".");
+
             for (int i = 0; i < (int)timeSpan.TotalHours; i++)
             {
-                IncrementAllStatuses();
                 Debug.Log("Updating statuses.");
+                IncrementAllStatuses();
             }
+
+            for(int i = 0; i < (int)timeSpan.TotalHours * 4; i++)
+                HistoryManager.instance.PostNewEvent();
+
+            gamePanelManager.UpdateStatsPanel(pawnController.PawnStatusController);
         }
     }
 
     private void IncrementAllStatuses()
     {
         pawnController.PawnStatusController.IncrementAllStatuses();
+        gamePanelManager.UpdateStatsPanel(pawnController.PawnStatusController);
+    }
+
+    public void UpdateOnHour()
+    {
+        IncrementAllStatuses();
         gamePanelManager.UpdateStatsPanel(pawnController.PawnStatusController);
     }
 }
