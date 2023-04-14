@@ -49,6 +49,30 @@ public class PawnController : MonoBehaviour, IUpdateOnHour
         statusController.UpdateNeedStatus(needStatus, magnitude);
     }
 
+    public void SetFirstName(string name)
+    {
+        if (name == null || name == string.Empty)
+            return;
+
+        statusController.SetFirstName(name);
+    }
+
+    public void SetNickName(string name)
+    {
+        if (name == null || name == string.Empty)
+            return;
+
+        statusController.SetNickname(name);
+    }
+
+    public void SetLastName(string name)
+    {
+        if (name == null || name == string.Empty)
+            return;
+
+        statusController.SetLastName(name);
+    }
+
     private void Awake()
     {
         statusController = new PawnStatusController();

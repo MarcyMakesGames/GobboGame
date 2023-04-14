@@ -9,6 +9,7 @@ public class LoginPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private TMP_Text statusText;
@@ -50,6 +51,12 @@ public class LoginPanelController : MonoBehaviour
         {
             UserManager.instance.InitializeUserLogin(usernameInput.text, passwordInput.text);
             loginPanel.SetActive(false);
+
+            if(saveData.completedTutorial == false)
+                tutorialPanel.SetActive(true);
+            else
+                gamePanel.SetActive(true);
+
             gamePanel.SetActive(true);
         }
     }

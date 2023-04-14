@@ -13,6 +13,7 @@ public class SaveDataObject
     public string password;
     public PawnStatusContainer pawnStatusContainer;
     public List<SessionData> sessionDataList;
+    public bool completedTutorial;
 }
 
 public class SessionData

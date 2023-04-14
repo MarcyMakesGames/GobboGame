@@ -8,6 +8,8 @@ public class PawnStatusContainer
     public string FirstName { get; set; }
     public string NickName { get; set; }
     public string LastName { get; set; }
+    public int HeadType { get; set; }
+    public int BodyType { get; set; }
     public PawnMentalStatusContainer MentalStatusContainer { get; set; }
     public PawnPhysicalStatusContainer PhysicalStatusContainer { get; set; }
     public PawnNeedsStatusContainer NeedsStatusContainer { get; set;}

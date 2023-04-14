@@ -12,7 +12,7 @@ public class GamePanelManager : MonoBehaviour
     [SerializeField] private GameObject entertainmentPanel;
     [Space]
     [SerializeField] private CanvasGroup panelControlGroup;
-    [SerializeField] private float panelControlMinAlpha = 0.5f;
+    //[SerializeField] private float panelControlMinAlpha = 0.5f;
     [SerializeField] private float panelControlMaxAlpha = 1f;
     [Space]
     [SerializeField] private Slider happinessSlider;

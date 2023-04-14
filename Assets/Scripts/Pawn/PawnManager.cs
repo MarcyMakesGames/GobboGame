@@ -14,9 +14,10 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
     [Space]
     [SerializeField] private GameObject pawnPrefab;
     [SerializeField] private Transform pawnAnchor;
-
-    private PawnController pawnController;
+    
     private GameObject pawnObject;
+    private PawnController pawnController;
+    private PawnSpriteController pawnSpriteController;
 
     private bool delayLoad = false;
     private float delayLoadTimer = 1f;
@@ -26,6 +27,7 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
         Debug.Log("Initializing pawn.");
         SpawnNewPawn(data.pawnStatusContainer);
         pawnController.InitPawnController(data.pawnStatusContainer);
+        pawnSpriteController.InitializePawnSprites(data.pawnStatusContainer);
 
         delayLoad = true;
     }
@@ -34,6 +36,13 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
     {
         pawnController.SetAnimation(animationDirection, onAnimationComplete);
     }
+
+    public void SetName(string firstName = null, string nickName = null, string lastName = null)
+    {
+        pawnController.SetFirstName(firstName);
+        pawnController.SetNickName(nickName);
+        pawnController.SetLastName(lastName);
+    }   
 
     public void MovePawnToPlayPosition()
     {
@@ -122,6 +131,7 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
     {
         pawnObject = Instantiate(pawnPrefab, pawnAnchor);
         pawnController = pawnObject.GetComponent<PawnController>();
+        pawnSpriteController = pawnObject.GetComponent<PawnSpriteController>();
     }
 
     private void UpdatePawnSinceLastLogin()
