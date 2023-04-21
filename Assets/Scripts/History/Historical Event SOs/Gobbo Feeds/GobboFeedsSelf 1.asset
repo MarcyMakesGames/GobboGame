@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
-  m_Name: GobboGrunt
+  m_Name: GobboFeedsSelf 1
   m_EditorClassIdentifier: 
-  eventText: Gobbo grunts noisily. Is he singing?
-  eventEffect: 0
-  effectMagnitude: 0
+  eventText: '# looks under a rock... and finds some mushrooms! Yummy!'
+  eventEffect: 1
+  effectMagnitude: 1

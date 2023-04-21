@@ -9,6 +9,7 @@ public class SaveDataController
     {
         SaveDataObject currentData = new SaveDataObject();
         PawnStatusController pawnStatus = PawnManager.instance.PawnController.PawnStatusController;
+        PawnSpriteController pawnSprites = PawnManager.instance.PawnSpriteController;
 
         List<SessionData> sessionDataList;
 
@@ -27,6 +28,9 @@ public class SaveDataController
         currentData.pawnStatusContainer.FirstName = pawnStatus.FirstName;
         currentData.pawnStatusContainer.NickName = pawnStatus.NickName;
         currentData.pawnStatusContainer.LastName = pawnStatus.LastName;
+        currentData.pawnStatusContainer.HeadType = pawnSprites.HeadType;
+        currentData.pawnStatusContainer.BodyType = pawnSprites.BodyType;
+        currentData.completedTutorial = true;
 
         currentData.pawnStatusContainer.MentalStatusContainer.health = pawnStatus.MentalStatus.MentalHealth;
         currentData.pawnStatusContainer.MentalStatusContainer.statusEffects = pawnStatus.MentalStatus.MentalStatusEffects;

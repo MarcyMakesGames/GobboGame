@@ -50,14 +50,19 @@ public class LoginPanelController : MonoBehaviour
         else
         {
             UserManager.instance.InitializeUserLogin(usernameInput.text, passwordInput.text);
-            loginPanel.SetActive(false);
+            UserManager.instance.InitializeUserData(saveData);
 
-            if(saveData.completedTutorial == false)
+            if (saveData.completedTutorial == false)
+            {
+                Debug.Log("Tutorial not completed.");
                 tutorialPanel.SetActive(true);
-            else
-                gamePanel.SetActive(true);
+                loginPanel.SetActive(false);
+                return;
+            }
 
+            UserManager.instance.SpawnPawn();
             gamePanel.SetActive(true);
+            loginPanel.SetActive(false);
         }
     }
 

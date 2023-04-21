@@ -27,6 +27,26 @@ public class UserManager : MonoBehaviour
         Username = username;
         Password = password;
     }
+    public void InitializeUserData(SaveDataObject userSaveData)
+    {
+        if (userSaveData == null)
+            return;
+
+        saveData = userSaveData;
+        sessionData = new SessionData();
+        sessionData.loginTime = DateTime.Now;
+
+        if (userSaveData.sessionDataList == null)
+        {
+            sessionDataList = new List<SessionData>();
+        }
+        else
+        {
+            sessionDataList = userSaveData.sessionDataList;
+        }
+
+        hasUser = true;
+    }
 
     public List<SessionData> GetSessionDataList()
     {
@@ -64,6 +84,11 @@ public class UserManager : MonoBehaviour
         return sessionData;
     }
 
+    public SaveDataObject GetCurrentSaveData()
+    {
+        return saveData;
+    }
+
     public void LogInteraction(ActivityStatus activity)
     {
         sessionData = GetCurrentSessionData();
@@ -87,6 +112,11 @@ public class UserManager : MonoBehaviour
         }
 
         SaveLoadManager.instance.UpdateAccountData();
+    }
+
+    public void SpawnPawn()
+    {
+        PawnManager.instance.InitializePawn(saveData);
     }
 
     public void QuitGame()
@@ -113,8 +143,6 @@ public class UserManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-
-        SaveLoadManager.OnPlayerDataUpdated += InitializeUserData;
     }
 
     private void Update()
@@ -127,33 +155,5 @@ public class UserManager : MonoBehaviour
                 Application.Quit();
             }
         }
-    }
-
-    private void OnDestroy()
-    {
-        SaveLoadManager.OnPlayerDataUpdated -= InitializeUserData;
-    }
-
-    private void InitializeUserData(SaveDataObject userSaveData)
-    {
-        if (userSaveData == null)
-            return;
-
-        saveData = userSaveData;
-        sessionData = new SessionData();
-        sessionData.loginTime = DateTime.Now;
-
-        if (userSaveData.sessionDataList == null)
-        {
-            sessionDataList = new List<SessionData>();
-        }
-        else
-        {
-            sessionDataList = userSaveData.sessionDataList;
-        }
-
-        hasUser = true;
-
-        PawnManager.instance.InitializePawn(saveData);
     }
 }

@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class PawnController : MonoBehaviour, IUpdateOnHour
 {
+    public PawnStatusController PawnStatusController { get => statusController; }
+    public PawnMoveController PawnMoveController { get => moveController; }
+ 
     [SerializeField] private PawnStatusController statusController;
     [SerializeField] private PawnAnimatorController animatorController;
     [SerializeField] private PawnMoveController moveController;
-
-    public PawnStatusController PawnStatusController { get => statusController; }
-    public PawnMoveController PawnMoveController { get => moveController; }
 
     public void InitPawnController(PawnStatusContainer statusContainer)
     {

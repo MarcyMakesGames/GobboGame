@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
   m_Name: NegativeRestedGobbo
   m_EditorClassIdentifier: 
-  eventText: You tried to help Gobbo rest, but they look more tired than before.
+  eventText: You tried to help # rest, but they look more tired than before.
   eventEffect: 0
   effectMagnitude: 0

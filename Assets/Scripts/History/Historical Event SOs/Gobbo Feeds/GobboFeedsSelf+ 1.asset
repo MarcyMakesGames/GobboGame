@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
-  m_Name: GobboStubsToe
+  m_Name: GobboFeedsSelf+ 1
   m_EditorClassIdentifier: 
-  eventText: Gobbo stubbed his toe on a rock. He smashes the rock!
-  eventEffect: 0
-  effectMagnitude: 0
+  eventText: '# pulls an entire, roast chicken from behind their back and swallows
+    it whole! Where did they even get that?'
+  eventEffect: 1
+  effectMagnitude: 2

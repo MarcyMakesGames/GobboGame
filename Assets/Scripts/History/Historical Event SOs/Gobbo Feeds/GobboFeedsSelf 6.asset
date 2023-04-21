@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
-  m_Name: PositiveRestedGobbo
+  m_Name: GobboFeedsSelf 6
   m_EditorClassIdentifier: 
-  eventText: You helped # get some rest!
-  eventEffect: 0
-  effectMagnitude: 0
+  eventText: A frog hops next to # and they quickly catch it and put it in their
+    mouth! No, froggy!
+  eventEffect: 1
+  effectMagnitude: 1

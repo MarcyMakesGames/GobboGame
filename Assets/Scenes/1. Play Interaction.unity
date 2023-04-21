@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1119,7 +1119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 103091770}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1090568956}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: LoadNextTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &103091770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1553,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Previous
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1649,7 +1661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162112948
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2251,7 +2263,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &199522401
 MonoBehaviour:
@@ -3223,7 +3235,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &308022079
 GameObject:
@@ -3346,7 +3358,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &351076608
 GameObject:
@@ -4107,7 +4119,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &412322979
 GameObject:
@@ -4860,7 +4872,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &489611264
 GameObject:
@@ -5716,7 +5728,7 @@ RectTransform:
   - {fileID: 1090568953}
   - {fileID: 1140322825}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6663,7 +6675,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6895,13 +6907,14 @@ GameObject:
   - component: {fileID: 717765459}
   - component: {fileID: 717765461}
   - component: {fileID: 717765460}
+  - component: {fileID: 717765462}
   m_Layer: 5
   m_Name: Goblin Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &717765459
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6918,8 +6931,8 @@ RectTransform:
   - {fileID: 2018315079}
   - {fileID: 769923050}
   - {fileID: 2037641811}
-  - {fileID: 1935999541}
   - {fileID: 1054457864}
+  - {fileID: 1935999541}
   - {fileID: 1112190141}
   m_Father: {fileID: 1090568953}
   m_RootOrder: 2
@@ -6967,6 +6980,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717765458}
   m_CullTransparentMesh: 1
+--- !u!114 &717765462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717765458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c2ce9367de95243afc4d31fcd14b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSprites:
+  - {fileID: 21300000, guid: 9f6c0bf5854b30e419a515cb010e9751, type: 3}
+  - {fileID: 21300000, guid: 4b5ed1e4f32c529418dc0f3665572655, type: 3}
+  - {fileID: 21300000, guid: 9da8cd2b4c3fe20428c71cf3a83ab030, type: 3}
+  bodySprites:
+  - {fileID: 21300000, guid: c84e2d100c6db5f4c8999d5bfd680937, type: 3}
+  - {fileID: 21300000, guid: 8c14feff1176638428d4e704e3d01bda, type: 3}
+  - {fileID: 21300000, guid: ed935a783ce887a429cccfc04bd32d84, type: 3}
+  goblinName: {fileID: 2018315080}
+  headSpriteRenderer: {fileID: 1597735249}
+  bodySpriteRenderer: {fileID: 300859830}
 --- !u!1 &721308374
 GameObject:
   m_ObjectHideFlags: 0
@@ -7372,7 +7408,7 @@ GameObject:
   - component: {fileID: 761788779}
   - component: {fileID: 761788778}
   m_Layer: 5
-  m_Name: Previous Tutorial Button (1)
+  m_Name: Previous Tutorial Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7396,7 +7432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -187, y: -285}
+  m_AnchoredPosition: {x: -472, y: -285}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761788778
@@ -7442,7 +7478,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 761788779}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1090568956}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: LoadPreviousTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &761788779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7655,7 +7703,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 769923052}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717765462}
+        m_TargetAssemblyTypeName: GoblinBuildController, Assembly-CSharp
+        m_MethodName: NextHead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &769923052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9111,7 +9171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &946877928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9791,7 +9851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1025297814
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9810,7 +9870,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 219, y: -285}
+  m_AnchoredPosition: {x: -275, y: -285}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1025297815
@@ -9856,7 +9916,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1025297816}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1090568956}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: LoadNextTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1025297816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9913,7 +9985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1051292384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10036,7 +10108,7 @@ RectTransform:
   m_Children:
   - {fileID: 668705750}
   m_Father: {fileID: 717765459}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10086,7 +10158,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1054457866}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717765462}
+        m_TargetAssemblyTypeName: GoblinBuildController, Assembly-CSharp
+        m_MethodName: NextBody
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1054457866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10219,7 +10303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1090568953
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10296,6 +10380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0326fb187c949094581ea1b5f4f0dc61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteBuildController: {fileID: 717765462}
   tutorialPanel: {fileID: 1090568952}
   introText: {fileID: 946877927}
   statsPanel: {fileID: 74707504}
@@ -10303,8 +10388,6 @@ MonoBehaviour:
   historyText: {fileID: 1287842590}
   buttonsText: {fileID: 609343883}
   goblinPanel: {fileID: 717765458}
-  goblinText: {fileID: 0}
-  goblinName: {fileID: 0}
   gamePanel: {fileID: 1140322824}
   nextTutorialButton: {fileID: 1025297813}
   previousTutorialButton: {fileID: 761788776}
@@ -10444,63 +10527,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091701286}
   m_CullTransparentMesh: 1
---- !u!1001 &1092396181
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1081056628344111540, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_Name
-      value: PawnPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.935857
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6.1851597
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081056628344111546, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2083c4e657e727646ab4b51c9f689a46, type: 3}
 --- !u!1 &1098942144
 GameObject:
   m_ObjectHideFlags: 0
@@ -11675,7 +11701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9056604, g: 0.8877655, b: 0.16575289, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12100,7 +12126,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321553560
 GameObject:
@@ -12943,7 +12969,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1385758673
 GameObject:
@@ -13628,7 +13654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.093342766, g: 0.09442902, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14707,7 +14733,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Previous
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14842,8 +14868,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is where you can see your goblin's status. Keeping the Hunger, Energy,
-    and Entertainment meters high will keep you goblin happy!
+  m_text: This is where you can see your goblin's status. Your goblin will try to
+    handle eating and getting rest on their own, but you will have to keep them entertained!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15254,7 +15280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3611019, g: 0.9622642, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -16254,7 +16280,7 @@ RectTransform:
   m_Children:
   - {fileID: 1692233056}
   m_Father: {fileID: 717765459}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16304,7 +16330,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1935999543}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717765462}
+        m_TargetAssemblyTypeName: GoblinBuildController, Assembly-CSharp
+        m_MethodName: PrevBody
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1935999543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16519,7 +16557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16615,7 +16653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2014087163
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17140,7 +17178,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2037641813}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 717765462}
+        m_TargetAssemblyTypeName: GoblinBuildController, Assembly-CSharp
+        m_MethodName: PrevHead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2037641813
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
 {
     public static PawnManager instance;
     public PawnController PawnController { get => pawnController; }
+    public PawnSpriteController PawnSpriteController { get => pawnSpriteController; }   
     public GameObject PawnObject { get => pawnObject; }
 
     [SerializeField] private GamePanelManager gamePanelManager;
@@ -28,13 +29,12 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
         SpawnNewPawn(data.pawnStatusContainer);
         pawnController.InitPawnController(data.pawnStatusContainer);
         pawnSpriteController.InitializePawnSprites(data.pawnStatusContainer);
-
         delayLoad = true;
     }
 
-    public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
+    public string GetPawnName()
     {
-        pawnController.SetAnimation(animationDirection, onAnimationComplete);
+        return pawnController.PawnStatusController.FirstName;
     }
 
     public void SetName(string firstName = null, string nickName = null, string lastName = null)
@@ -42,6 +42,16 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
         pawnController.SetFirstName(firstName);
         pawnController.SetNickName(nickName);
         pawnController.SetLastName(lastName);
+    }
+
+    public void SetSprites(int headSprite, int bodySprite)
+    {
+        pawnSpriteController.InitializePawnSprites(headSprite, bodySprite);
+    }
+
+    public void SetAnimation(AnimationEnums animationDirection, Action onAnimationComplete = null)
+    {
+        pawnController.SetAnimation(animationDirection, onAnimationComplete);
     }   
 
     public void MovePawnToPlayPosition()
@@ -117,10 +127,9 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
         if (delayLoad)
         {
             delayLoadTimer -= Time.deltaTime;
-
+            Debug.Log("Delaying load.");
             if (delayLoadTimer <= 0)
             {
-                Debug.Log("Delayed load complete.");
                 UpdatePawnSinceLastLogin();
                 delayLoad = false;
             }
@@ -144,6 +153,9 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
                 Debug.Log("No previous session data found.");
             else
                 Debug.Log("Invalid session time: " + sessionData.logoutTime + ". If this was in error, please contact an administrator.");
+
+            gamePanelManager.UpdateStatsPanel(pawnController.PawnStatusController);
+
             return;
         }
         else
@@ -151,7 +163,6 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
             DateTime currentTime = DateTime.Now;
             DateTime lastLogin = sessionData.logoutTime;
             TimeSpan timeSpan = currentTime - lastLogin;
-            Debug.Log("Previous session logout time: " + sessionData.logoutTime + ".");
 
             for (int i = 0; i < (int)timeSpan.TotalHours; i++)
             {

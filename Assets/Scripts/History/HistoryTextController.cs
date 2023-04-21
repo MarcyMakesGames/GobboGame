@@ -35,28 +35,43 @@ public class HistoryTextController : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    slot0.text = currentString;
+                    slot0.text = PopulateTextWithName(currentString);
                     eventStrings.Enqueue(eventStrings.Dequeue());
                     break;
                 case 1:
-                    slot1.text = currentString;
+                    slot1.text = PopulateTextWithName(currentString);
                     eventStrings.Enqueue(eventStrings.Dequeue());
                     break;
                 case 2:
-                    slot2.text = currentString;
+                    slot2.text = PopulateTextWithName(currentString);
                     eventStrings.Enqueue(eventStrings.Dequeue());
                     break;
                 case 3:
-                    slot3.text = currentString;
+                    slot3.text = PopulateTextWithName(currentString);
                     eventStrings.Enqueue(eventStrings.Dequeue());
                     break;
                 case 4:
-                    slot4.text = currentString;
+                    slot4.text = PopulateTextWithName(currentString);
                     eventStrings.Enqueue(eventStrings.Dequeue());
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private string PopulateTextWithName(string stringToEdit)
+    {
+        string currentText = ""; 
+
+        foreach(char character in stringToEdit)
+        {
+            if (character == '#')
+                currentText += PawnManager.instance.GetPawnName();
+            else
+                currentText += character;
+        }
+
+        return currentText;
     }
 }

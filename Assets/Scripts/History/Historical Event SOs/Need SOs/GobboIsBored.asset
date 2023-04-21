@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
   m_Name: GobboIsBored
   m_EditorClassIdentifier: 
-  eventText: Gobbo is bored. He wants to play!
+  eventText: '# is bored. He wants to play!'
   eventEffect: 0
   effectMagnitude: 0

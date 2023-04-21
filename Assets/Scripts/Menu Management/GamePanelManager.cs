@@ -76,7 +76,6 @@ public class GamePanelManager : MonoBehaviour
 
     public void UpdateStatsPanel(PawnStatusController pawnStatusController)
     {
-        Debug.Log("Updating stats panel.");
         happinessSlider.value = pawnStatusController.GetHappinessPercent();
         foodSlider.value = pawnStatusController.GetHungerPercent();
         sleepSlider.value = pawnStatusController.GetSleepPercent();

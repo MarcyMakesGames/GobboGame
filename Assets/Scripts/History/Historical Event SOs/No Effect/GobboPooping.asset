@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
-  m_Name: GobboSniffsTheAir
+  m_Name: GobboPooping
   m_EditorClassIdentifier: 
-  eventText: Gobbo sniffs the air. He doesn't smell anything.
+  eventText: '# has a laser focus on something in the distance... no, wait. They''re
+    pooping...'
   eventEffect: 0
   effectMagnitude: 0

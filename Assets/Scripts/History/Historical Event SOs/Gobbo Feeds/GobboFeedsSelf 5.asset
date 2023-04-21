@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
-  m_Name: GobboMillsAbout
+  m_Name: GobboFeedsSelf 5
   m_EditorClassIdentifier: 
-  eventText: Gobbo is milling about.
-  eventEffect: 0
-  effectMagnitude: 0
+  eventText: '# crunches on some bones in the corner. The bones look suspciously
+    familiar...'
+  eventEffect: 1
+  effectMagnitude: 1

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField] private GoblinBuildController spriteBuildController;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private GameObject introText;
     [Space]
@@ -14,8 +15,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject buttonsText;
     [Space]
     [SerializeField] private GameObject goblinPanel;
-    [SerializeField] private GameObject goblinText;
-    [SerializeField] private GameObject goblinName;
     [Space]
     [SerializeField] private GameObject gamePanel;
     [Space]
@@ -50,7 +49,6 @@ public class TutorialManager : MonoBehaviour
         {
             case TutorialTypeEnum.Intro:
                 introText.SetActive(true);
-                previousTutorialButton.SetActive(false);
                 nextTutorialButton.SetActive(true);
                 break;
 
@@ -77,24 +75,22 @@ public class TutorialManager : MonoBehaviour
 
             case TutorialTypeEnum.Goblin:
                 goblinPanel.SetActive(true);
-                goblinText.SetActive(true);
                 previousTutorialButton.SetActive(true);
                 nextTutorialButton.SetActive(true);
                 break;
 
             case TutorialTypeEnum.GoblinCutsomization:
                 goblinPanel.SetActive(true);
-                goblinName.SetActive(true);
                 previousTutorialButton.SetActive(true);
                 startGameButton.SetActive(true);
                 break;
 
             case TutorialTypeEnum.Game:
-                TMP_Text nameText = goblinName.GetComponent<TMP_Text>();
-                PawnManager.instance.SetName(nameText.text, null, null);
+                UserManager.instance.SpawnPawn();
+                spriteBuildController.InitializePawn();
                 gamePanel.SetActive(true);
+                tutorialPanel.SetActive(false);
                 break;
-
         }
     }
 
@@ -106,8 +102,6 @@ public class TutorialManager : MonoBehaviour
         historyText.SetActive(false);
         buttonsText.SetActive(false);
         goblinPanel.SetActive(false);
-        goblinText.SetActive(false);
-        goblinName.SetActive(false);
         gamePanel.SetActive(false);
         nextTutorialButton.SetActive(false);
         previousTutorialButton.SetActive(false);
