@@ -174,9 +174,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   historicalEventSOs:
+  - {fileID: 11400000, guid: d2333b350b01413468574c25b5e59803, type: 2}
+  - {fileID: 11400000, guid: 1aadacd57344b8140a09a2b39179e3d2, type: 2}
+  - {fileID: 11400000, guid: 5a5f52a0b47b8104f801a5c84c96aa93, type: 2}
+  - {fileID: 11400000, guid: 5805297f0eef22147bba8e5976df8e38, type: 2}
+  - {fileID: 11400000, guid: 02d5aa5b7bbaa3e45863f4616965c19d, type: 2}
+  - {fileID: 11400000, guid: 85dd84c74f192eb46bcca531cc82d365, type: 2}
+  - {fileID: 11400000, guid: 4e4d56b1c3ae2994fa40dd8b514aa5d8, type: 2}
+  - {fileID: 11400000, guid: 99760566dabf7d845abe675bcd273c89, type: 2}
+  - {fileID: 11400000, guid: 09b7ff739ca72454989944a408527daa, type: 2}
+  - {fileID: 11400000, guid: 14a1b558207064d4a996e60f073b0884, type: 2}
   - {fileID: 11400000, guid: 772d9e48cb76a4b4c97661b67e3943b8, type: 2}
   - {fileID: 11400000, guid: d1f1004379d7a454da4c3ebb4aac996c, type: 2}
+  - {fileID: 11400000, guid: 73a4d6c232541a743a1b7596d20867fb, type: 2}
   - {fileID: 11400000, guid: be46a87299c74ea4382e4e73a3fab5b9, type: 2}
+  - {fileID: 11400000, guid: 663f20b8f01c72b40a070e93d076d7af, type: 2}
   - {fileID: 11400000, guid: 7962b91cf19083249b41400a22d84f94, type: 2}
   hungryEventSO: {fileID: 11400000, guid: 9a177f402e23e09459ff4718026a44eb, type: 2}
   tiredEventSO: {fileID: 11400000, guid: bd4f5d34055ed5146bebc85128779686, type: 2}
@@ -8100,7 +8112,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Please log in with your username and password. If you are having trouble
-    logging in, please contact Ace on Discord (Luaden#0002).
+    logging in, please contact Marceline on Discord (Luaden#0002) or at marcelinemakesgames@gmail.com.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9985,7 +9997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1051292384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10073,8 +10085,8 @@ MonoBehaviour:
   statusText: {fileID: 825716898}
   rememberCredentialsToggle: {fileID: 599206587}
   loginFailedText: That username and password combination was incorrect. If you are
-    having trouble logging in, please contact Ace on Discord (Luaden#0002). If you
-    were creating an account, that Username is already in use.
+    having trouble logging in, please contact Marceline on Discord (Luaden#0002)
+    or at marcelinemakesgames@gmail.com.
 --- !u!1 &1054457863
 GameObject:
   m_ObjectHideFlags: 0
@@ -16672,7 +16684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.0533447, y: -187.29999}
+  m_AnchoredPosition: {x: 7.0533447, y: -230.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2014087164

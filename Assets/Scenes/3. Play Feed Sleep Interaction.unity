@@ -176,7 +176,9 @@ MonoBehaviour:
   historicalEventSOs:
   - {fileID: 11400000, guid: 772d9e48cb76a4b4c97661b67e3943b8, type: 2}
   - {fileID: 11400000, guid: d1f1004379d7a454da4c3ebb4aac996c, type: 2}
+  - {fileID: 11400000, guid: 73a4d6c232541a743a1b7596d20867fb, type: 2}
   - {fileID: 11400000, guid: be46a87299c74ea4382e4e73a3fab5b9, type: 2}
+  - {fileID: 11400000, guid: 663f20b8f01c72b40a070e93d076d7af, type: 2}
   - {fileID: 11400000, guid: 7962b91cf19083249b41400a22d84f94, type: 2}
   hungryEventSO: {fileID: 11400000, guid: 9a177f402e23e09459ff4718026a44eb, type: 2}
   tiredEventSO: {fileID: 11400000, guid: bd4f5d34055ed5146bebc85128779686, type: 2}
@@ -8100,7 +8102,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Please log in with your username and password. If you are having trouble
-    logging in, please contact Ace on Discord (Luaden#0002).
+    logging in, please contact Marceline on Discord (Luaden#0002) or at marcelinemakesgames@gmail.com.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9985,7 +9987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1051292384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10073,8 +10075,8 @@ MonoBehaviour:
   statusText: {fileID: 825716898}
   rememberCredentialsToggle: {fileID: 599206587}
   loginFailedText: That username and password combination was incorrect. If you are
-    having trouble logging in, please contact Ace on Discord (Luaden#0002). If you
-    were creating an account, that Username is already in use.
+    having trouble logging in, please contact Marceline on Discord (Luaden#0002)
+    or at marcelinemakesgames@gmail.com.
 --- !u!1 &1054457863
 GameObject:
   m_ObjectHideFlags: 0

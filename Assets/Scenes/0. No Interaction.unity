@@ -174,9 +174,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   historicalEventSOs:
+  - {fileID: 11400000, guid: 9c5709edad72f0b4682e15ab0e2e2d32, type: 2}
+  - {fileID: 11400000, guid: 528d4ba60e5432646aa2554f080bd87b, type: 2}
+  - {fileID: 11400000, guid: cc38e51b2387bba48973a6728602be8b, type: 2}
+  - {fileID: 11400000, guid: e10122885ae15e64eaad360af8b309ef, type: 2}
+  - {fileID: 11400000, guid: e7ad75e00c30b8741b70ec409d8c260e, type: 2}
+  - {fileID: 11400000, guid: 580287ada9de0994682ae06bf124545b, type: 2}
+  - {fileID: 11400000, guid: 9dd5e7040d74a0c4291fc11a66a64c43, type: 2}
+  - {fileID: 11400000, guid: 497ccfa7ba71ba9409e4b51c3eba8a7f, type: 2}
+  - {fileID: 11400000, guid: 6cc3ef1f3b2419a47ad81b1a3617596b, type: 2}
+  - {fileID: 11400000, guid: 2ed0136de19b5bb4c82810ba02746b04, type: 2}
+  - {fileID: 11400000, guid: fc72ddbef66026b439c66f8be018f760, type: 2}
+  - {fileID: 11400000, guid: 1ef4eeb6ad8780b45995ac004f0a0e39, type: 2}
+  - {fileID: 11400000, guid: 38a44f4addcc9324592d6793de01671d, type: 2}
+  - {fileID: 11400000, guid: 5a0b77ea14c378a4f94ff5e3584a5955, type: 2}
+  - {fileID: 11400000, guid: 64c6792125afce44abba0bbd3a3683e5, type: 2}
+  - {fileID: 11400000, guid: 6663a9b97c75d8d449a32c3ef2154989, type: 2}
+  - {fileID: 11400000, guid: ca42fdc0142a6fb4799d64966335c7aa, type: 2}
+  - {fileID: 11400000, guid: f73c413d39c45904ba46d652fda04c21, type: 2}
+  - {fileID: 11400000, guid: a0785e7b54881c5408d7b59fe122507d, type: 2}
+  - {fileID: 11400000, guid: 7ded14f059b9b9748bce9b27e4780789, type: 2}
+  - {fileID: 11400000, guid: d2333b350b01413468574c25b5e59803, type: 2}
+  - {fileID: 11400000, guid: 1aadacd57344b8140a09a2b39179e3d2, type: 2}
+  - {fileID: 11400000, guid: 5a5f52a0b47b8104f801a5c84c96aa93, type: 2}
+  - {fileID: 11400000, guid: 5805297f0eef22147bba8e5976df8e38, type: 2}
+  - {fileID: 11400000, guid: 02d5aa5b7bbaa3e45863f4616965c19d, type: 2}
+  - {fileID: 11400000, guid: 85dd84c74f192eb46bcca531cc82d365, type: 2}
+  - {fileID: 11400000, guid: 4e4d56b1c3ae2994fa40dd8b514aa5d8, type: 2}
+  - {fileID: 11400000, guid: 99760566dabf7d845abe675bcd273c89, type: 2}
+  - {fileID: 11400000, guid: 09b7ff739ca72454989944a408527daa, type: 2}
+  - {fileID: 11400000, guid: 14a1b558207064d4a996e60f073b0884, type: 2}
   - {fileID: 11400000, guid: 772d9e48cb76a4b4c97661b67e3943b8, type: 2}
   - {fileID: 11400000, guid: d1f1004379d7a454da4c3ebb4aac996c, type: 2}
+  - {fileID: 11400000, guid: 73a4d6c232541a743a1b7596d20867fb, type: 2}
   - {fileID: 11400000, guid: be46a87299c74ea4382e4e73a3fab5b9, type: 2}
+  - {fileID: 11400000, guid: 663f20b8f01c72b40a070e93d076d7af, type: 2}
   - {fileID: 11400000, guid: 7962b91cf19083249b41400a22d84f94, type: 2}
   hungryEventSO: {fileID: 11400000, guid: 9a177f402e23e09459ff4718026a44eb, type: 2}
   tiredEventSO: {fileID: 11400000, guid: bd4f5d34055ed5146bebc85128779686, type: 2}
@@ -3428,7 +3460,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3445,8 +3477,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4491,7 +4523,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4508,8 +4540,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4979,7 +5011,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4996,8 +5028,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5360,8 +5392,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5378,8 +5410,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8100,7 +8132,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Please log in with your username and password. If you are having trouble
-    logging in, please contact Ace on Discord (Luaden#0002).
+    logging in, please contact Marceline on Discord (Luaden#0002) or at marcelinemakesgames@gmail.com.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8321,7 +8353,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -8338,8 +8370,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9985,7 +10017,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1051292384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10073,8 +10105,8 @@ MonoBehaviour:
   statusText: {fileID: 825716898}
   rememberCredentialsToggle: {fileID: 599206587}
   loginFailedText: That username and password combination was incorrect. If you are
-    having trouble logging in, please contact Ace on Discord (Luaden#0002). If you
-    were creating an account, that Username is already in use.
+    having trouble logging in, please contact Marceline on Discord (Luaden#0002)
+    or at marcelinemakesgames@gmail.com.
 --- !u!1 &1054457863
 GameObject:
   m_ObjectHideFlags: 0

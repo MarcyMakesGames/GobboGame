@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9695e72cd4026e439300c831304dbea, type: 3}
-  m_Name: GobboPlays 1
+  m_Name: GobboSleeps 6
   m_EditorClassIdentifier: 
-  eventText: '# seems bored... they start throwing rocks in a cave pond. That seems
-    to have amused them.'
-  eventEffect: 4
+  eventText: '# lets out a yawn and stretch. Ooh big stretch!'
+  eventEffect: 2
   effectMagnitude: 1

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GobboPlays 4
   m_EditorClassIdentifier: 
   eventText: '# is lazily laying on a rock. They watch bats flying back and forth
-    above them.'
+    above them. They seem amused!'
   eventEffect: 4
   effectMagnitude: 1

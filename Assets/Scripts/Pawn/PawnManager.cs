@@ -170,7 +170,7 @@ public class PawnManager : MonoBehaviour, IUpdateOnHour
                 IncrementAllStatuses();
             }
 
-            for(int i = 0; i < (int)timeSpan.TotalHours * 4; i++)
+            for(int i = 0; i < (int)timeSpan.TotalHours * 3; i++)
                 HistoryManager.instance.PostNewEvent();
 
             gamePanelManager.UpdateStatsPanel(pawnController.PawnStatusController);
